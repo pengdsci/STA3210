@@ -1,0 +1,160 @@
+---
+title: 'STA321 Week #4 Assignment - MLR'
+author: 'Due: 11:30 PM, Sunday, 09/24/2023'
+date: " "
+output:
+  pdf_document: 
+    toc: no
+    toc_depth: 4
+    fig_caption: yes
+    number_sections: no
+    fig_width: 3
+    fig_height: 3
+  word_document: 
+    toc: no
+    toc_depth: 4
+    fig_caption: yes
+    keep_md: yes
+  html_document: 
+    toc: no
+    toc_depth: 4
+    toc_float: no
+    fig_width: 4
+    fig_caption: yes
+    number_sections: no
+    theme: readable
+    fig_height: 4
+editor_options: 
+  chunk_output_type: inline
+---
+
+```{=html}
+
+<style type="text/css">
+
+/* Cascading Style Sheets (CSS) is a stylesheet language used to describe the presentation of a document written in HTML or XML. it is a simple mechanism for adding style (e.g., fonts, colors, spacing) to Web documents. */
+
+h1.title {  /* Title - font specifications of the report title */
+  font-size: 24px;
+  color: DarkRed;
+  text-align: center;
+  font-family: "Gill Sans", sans-serif;
+}
+h4.author { /* Header 4 - font specifications for authors  */
+  font-size: 20px;
+  font-family: system-ui;
+  color: DarkRed;
+  text-align: center;
+}
+h4.date { /* Header 4 - font specifications for the date  */
+  font-size: 18px;
+  font-family: system-ui;
+  color: DarkBlue;
+  text-align: center;
+}
+h1 { /* Header 1 - font specifications for level 1 section title  */
+    font-size: 22px;
+    font-family: system-ui;
+    color: navy;
+    text-align: center;
+}
+h2 { /* Header 2 - font specifications for level 2 section title */
+    font-size: 20px;
+    font-family: "Times New Roman", Times, serif;
+    color: navy;
+    text-align: left;
+}
+
+h3 { /* Header 3 - font specifications of level 3 section title  */
+    font-size: 18px;
+    font-family: "Times New Roman", Times, serif;
+    color: navy;
+    text-align: left;
+}
+
+h4 { /* Header 4 - font specifications of level 4 section title  */
+    font-size: 18px;
+    font-family: "Times New Roman", Times, serif;
+    color: darkred;
+    text-align: left;
+}
+
+body { background-color:white; }
+
+.highlightme { background-color:yellow; }
+
+p { background-color:white; }
+
+</style>
+```
+```{r setup, include=FALSE}
+# Detect, install and load packages if needed.
+if (!require("knitr")) {
+   install.packages("knitr")
+   library(knitr)
+}
+if (!require("MASS")) {
+   install.packages("MASS")
+   library(MASS)
+}
+if (!require("nleqslv")) {
+   install.packages("nleqslv")
+   library(nleqslv)
+}
+#
+# specifications of outputs of code in code chunks
+knitr::opts_chunk$set(echo = TRUE,      # include code chunk in the output file
+                      warnings = FALSE,  # sometimes, you code may produce warning messages,
+                                         # you can choose to include the warning messages in
+                                         # the output file. 
+                      messages = FALSE,  #
+                      results = TRUE     # you can also decide whether to include the output
+                                         # in the output file.
+                      )   
+```
+
+
+\
+
+
+This assignment focuses on the multiple regression model using various techniques you learned from your previous courses. You will use the data set you selected last week. That data set will also be used for the next assignment that is based on this week's report.
+
+Please study the first three sections of the class note. Your data analysis and write-up should be similar to what did in the case study in section 4 of the note. In fact, Section 4 can be considered a standalone statistical report. 
+
+Your analysis and write-up should have all components in Section 4.
+
+* Description of your data set
+* What are the research questions
+* Exploratory analysis of the data set and prepare the analytic data for the regression
+  + create new variables based on existing ones?
+  + drop some irrelevant variables based on your judgment.
+* Initial full model with all relevant variables and conduct residual diagnostic
+  + special patterns in residual plots?
+  + violation of model assumptions?
+* Need to transform the response variable with Box-Cox?
+* Want to transform explanatory variables to improve goodness-of-fit measures? 
+  + Please feel free to use my code to extract the goodness-of-fit measures. If you forgot the meaning of the goodness-of-fit measures, please check your old textbook or the eBook that I suggested on the course web page.
+  + Several packages have a Box-Cox transformation function. The one that I used in the case study is from the library {MASS}. You can check the help document if you are sure how to use it. 
+* Build several candidate models and then select the best one as your model.
+* Summarize the output including residual diagnostic plots
+* Interpret the regression coefficient as I did in the case study.
+* Conclusions and discussion.
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

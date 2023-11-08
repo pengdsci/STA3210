@@ -1,0 +1,26 @@
+\contentsline {section}{\numberline {1}Bootstrap Method Revisited}{1}{section.1}%
+\contentsline {subsection}{\numberline {1.1}\texttt {pdf} vs \texttt {CDF}}{2}{subsection.1.1}%
+\contentsline {subsection}{\numberline {1.2}Comparing Two Distributions}{2}{subsection.1.2}%
+\contentsline {subsection}{\numberline {1.3}Empirical Distribution and CDF}{2}{subsection.1.3}%
+\contentsline {subsection}{\numberline {1.4}Relationship between \(F(x)\) and \(F_n(X)\)}{3}{subsection.1.4}%
+\contentsline {subsection}{\numberline {1.5}Why Bootstrap Procedure Works?}{4}{subsection.1.5}%
+\contentsline {subsection}{\numberline {1.6}A Bigger Picture}{5}{subsection.1.6}%
+\contentsline {section}{\numberline {2}Other Resampling Methods}{5}{section.2}%
+\contentsline {subsection}{\numberline {2.1}Jackknif Resampling}{5}{subsection.2.1}%
+\contentsline {subsection}{\numberline {2.2}Jackknife for Predictive Sum of Squares (PRESS)}{5}{subsection.2.2}%
+\contentsline {subsection}{\numberline {2.3}Some Comments on Jackknife}{6}{subsection.2.3}%
+\contentsline {section}{\numberline {3}Case Study - Factors That Affect House Prices}{8}{section.3}%
+\contentsline {subsection}{\numberline {3.1}Models with Transformed Response}{8}{subsection.3.1}%
+\contentsline {subsection}{\numberline {3.2}Bootstrap Cases (BOOT.C)}{9}{subsection.3.2}%
+\contentsline {subsection}{\numberline {3.3}Bootstrap Residuals (BOOT.R)}{12}{subsection.3.3}%
+\contentsline {subsubsection}{\numberline {3.3.1}Fitted Model}{12}{subsubsection.3.3.1}%
+\contentsline {subsubsection}{\numberline {3.3.2}Residual Bootstrap Samples}{13}{subsubsection.3.3.2}%
+\contentsline {subsubsection}{\numberline {3.3.3}Implementation of Residual Bootstrap Regression}{14}{subsubsection.3.3.3}%
+\contentsline {subsubsection}{\numberline {3.3.4}Combining All Inferential Statistics}{16}{subsubsection.3.3.4}%
+\contentsline {subsection}{\numberline {3.4}Discussions on Model Reporting}{17}{subsection.3.4}%
+\contentsline {section}{\numberline {4}Some Concluding Remarks}{18}{section.4}%
+\contentsline {subsection}{\numberline {4.1}Key Elements in Storytelling}{18}{subsection.4.1}%
+\contentsline {subsection}{\numberline {4.2}Title and Heading in Statistics Report}{18}{subsection.4.2}%
+\contentsline {subsection}{\numberline {4.3}Regression Modeling and Reporting}{19}{subsection.4.3}%
+\contentsline {subsubsection}{\numberline {4.3.1}Modeling Workflow}{19}{subsubsection.4.3.1}%
+\contentsline {subsubsection}{\numberline {4.3.2}Reporting Guidelines}{19}{subsubsection.4.3.2}%

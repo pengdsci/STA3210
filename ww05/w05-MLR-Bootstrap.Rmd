@@ -1,0 +1,304 @@
+---
+title: "MLR and Bootstrap"
+author: "Cheng Peng"
+date: "West Chester University"
+output:
+  pdf_document :
+      latex_engine : xelatex
+  word_document: default
+  html_document:
+    df_print: paged
+---
+
+```{r setup, include=FALSE}
+#knitr::opts_chunk$set(echo = TRUE)
+```
+
+## 1. SAT Scores
+ The working data set is at:
+ 
+https://raw.githubusercontent.com/pengATwcupa/STA321SP2020/master/sat-scores.txt
+
+The data set has three variables: Verbal score, Math score and gender. 162 observations are included in the data set. This is a simple and almost perfect data. 
+
+## 2. Fit A Linear Regression Model to the Data
+
+```{r load-data}
+sat = read.table("https://raw.githubusercontent.com/pengATwcupa/STA321SP2020/master/sat-scores.txt", header = TRUE)
+# head(sat)
+m=lm(Math~Verbal+Sex, data=sat)
+summary(m)
+```
+
+```{r residual-plots}
+par(mfrow=c(2,2))
+plot(m)
+```
+
+Residual plots do not indicate any serious violations to the model assumption. We can tell some story about the model based on the summarized statistics.
+
+
+## 3. Bootstrapping Linear Regression - Non-parametric Approaches
+
+Two Types of Bootstrap methods are commonly used in regression modeling.
+
+### 3.1. Bootstrap Sample and Bootstrap Confidence Intervals
+
+A bootstrap sample is a smaller sample that is “bootstrapped” from a larger sample.
+
+Bootstrapping is a type of re-sampling where large numbers of smaller samples of the same size are repeatedly drawn, with replacement, from a single original sample.
+
+**Example 1.** Let's simulate a set of 1000 values from N(10, 8). We want to a bootstrap sample with size 1000 from this data set. I use R do this types of samples in the following
+
+```{r resampling-bootstrap}
+dataset = rnorm(1000, mean =10, sd = 8)
+sort(sample(dataset,1000, replace = TRUE))[1:50]
+```
+
+```{r his-boot-sample}
+hist(sample(dataset,1000, replace = TRUE),breaks = 15, main="Freq Dist of Bootstrap Sample")
+```
+
+The histograms indicates that the sampling distribution of the Bootstrap samples is close to a normal distribution.
+
+The bootstrap percentile method is a way to calculate confidence intervals for bootstrapped samples.
+
+With the simple method, a certain percentage (e.g. 5% or 10%) is trimmed from the lower and upper end of the sample statistic (e.g. the mean or standard deviation). Which number you trim depends on the confidence interval you’re looking for. For example, a 90% confidence interval would generate a 100% – 90% = 10% trim (i.e. 5% from both ends). Or, put another (slightly more technical) way, you can get a 90% confidence interval by taking the lower bound 5% and upper bound 95% quantiles of the B replication $T_1, T_2, \cdots, T_B$. $B=$ bootstrap replicates.
+
+
+```{r ci}
+vec.avg = NULL
+B=1000
+for(i in 1:B){
+   vec.avg[i]  = mean(sample(dataset,1000, replace = TRUE))
+}
+hist(vec.avg, breaks =15)
+```
+
+### 3.2. Sampling Cases (Observations)
+
+This is a naive Bootstrap sampling, we take B (usually a large number > 1000) random sets of records (observations) with replacement from the original data set and each subset set has the same size as the original data set. We fit the same regression model to each of the B sets and obtain B regression models. For linear regression model 
+$$
+y = \beta_0+\beta_1x_1+ \cdots+\beta_kx_k+\epsilon
+$$
+For $b$-th bootstrap sample ($b=1, 2, \cdots, B$), we have fitted regression line
+
+$$
+y = \hat{\beta}_0^{*(b)}+\hat{\beta}_1^{*(b)}x_1+ \cdots+\hat{\beta}_k^{*(b)}x_k
+$$
+Then we have a vector of bootstrap estimate for each regression coefficient. That is,
+$$
+\hat{\beta}_i^* = (\hat{\beta}_i^{*(1)}, \hat{\beta}_i^{*(2)}, \cdots, \hat{\beta}_k^{*(B)})
+$$
+for $i=0, 1, \cdots, k$. The bootstrap sampling distribution of $\hat{\beta}_i$ can be approximated by the empirical distribution of $\hat{\beta}_i^*$.
+
+**Example ** We continue to use the above SAT score example. The following R function will the Bootstrap regression by sampling the cases.
+
+```{r boot-case}
+sat = read.table("https://raw.githubusercontent.com/pengATwcupa/STA321SP2020/master/sat-scores.txt", header = TRUE)
+###
+My.lm01=function(dataset, B, histogram=TRUE){
+    # dataset = input data set
+    # B = number of bootstrap samples
+    n0=dim(dataset)[1]
+    var.name = c("Intercept",names(dataset)[-1])
+    col.num=length(names(dataset))     ## number of variables = number of parameters
+    row.num = B                        ## each bootstrap coefficients will be saved in a row
+    coef.matrx = matrix(0,ncol=col.num, nrow=B)   # bootstrap coef matrix
+    colnames(coef.matrx) = var.name
+    for (i in 1:B){
+         boot.data = unique(dataset[sample(1:n0, n0, replace=TRUE),])  ## Bootstrap data set
+         boot.m = lm(Math~Verbal+Sex, data = boot.data)     ## Bootstrap model
+         coef.matrx[i,] = coef(boot.m)            ## save the bootstrap coef to the matrix
+    }
+    ## original linear regression model
+    m0 = lm(Math~Verbal+Sex, data = dataset)
+    cof.m0=summary(m0)$coef
+    q.025=function(x) quantile(x, 0.025)
+    q.975=function(x) quantile(x, 0.975)
+    Boot.LCI.025=apply(coef.matrx,2,q.025)
+    Boot.UCI.975=apply(coef.matrx,2,q.975)
+    new.coef=round(cbind(cof.m0, cbind(BT01.LCI.025=Boot.LCI.025, BT01.UCI.975=Boot.UCI.975)),4)
+    if(histogram==TRUE){
+       hist(coef.matrx[,1], main=paste("Bootstrap (Case) Distribution \n of Coefficient:",var.name[1]))
+       hist(coef.matrx[,2], main=paste("Bootstrap (Case) Distribution \n of Coefficient:",var.name[2]))
+       hist(coef.matrx[,3], main=paste("Bootstrap (Case) Distribution \n of Coefficient:",var.name[3]))
+    }
+    list(boot.coef=coef.matrx, coefficient=new.coef) # two types of outputs vailable from the function
+}
+My.lm01(dataset=sat, B=1000, histogram=TRUE)$coefficient 
+```
+
+### 3.3. Re-sampling the Errors (with Fixed Covariates)
+
+The whole idea is to fix all covariates and find the fitted value of $y$ with corresponding covariates (explanatory variables) and then random assign a bootstrap error take from the residuals.
+
+**We This method assumes that the iid residuals but does not assume the normal distribution!**
+
+Following are steps of Bootstrap algorithm (assuming taking $B$ bootstrap samples):
+
+* Estimate the regression coefficients for the original sample, and calculate the fitted value  $\hat{y}_i$  and residual  $e_i$  for each observation.
+
+* Select $b^{th}$ bootstrap samples of the residuals: we will denote these bootstrapped residuals as  $\{e_1^{*(b)},e_2^{*(b)},\cdots, e_n^{*(b)}\}$ . Then, the $b^{th}$ bootstrapped $\hat{y}_i^{*(b)}$ is defined to be  $\hat{y}_i+e_i^{*(b)}$, for $i=1, \cdots, n$ and $b=1,2, \cdots, B$.  The fitted values  $\hat{y}_i=\hat{\beta}_0+\sum_{k=1}^p\hat{\beta}_k x_{ki}$  are obtained from the original regression.
+
+* The new bootstrap data sets: For illustration purpose, we only write $b^{th}$ Bootstrap data set in the following matrix
+
+$$
+\begin{pmatrix}
+\hat{y}_1^{*(b)} & x_{11} & x_{21} & \cdots & x_{p1}\\
+\hat{y}_2^{*(b)} & x_{12} & x_{22} & \cdots & x_{p2}\\
+   \vdots & \vdots & \vdots & \vdots & \vdots\\
+\hat{y}_n^{*(b)} & x_{1n} & x_{2n} & \cdots & x_{pn}\\
+\end{pmatrix}
+$$
+where 
+
+$$\hat{y}_i^{*(b)}=\hat{\beta}_0+\sum_{k=1}^p\hat{\beta}_k x_{ki} + e_i^{*(b)}$$
+
+* Fit the the final model to each of the B bootstrap samples and obtain B linear regression models. The fitted Bootstrap linear regression models have the following form
+
+$$
+\hat{y}_i^{*(b)}=\hat{\beta}_0^{*(b)}+\sum_{k=1}^p\hat{\beta}_k^{*(b)} x_{ki}
+$$
+* For each regression coefficient $\beta_i$, for $i=0, 1, \cdots, p$, we obtain $B$ bootstrap estimates, denoted by $\hat{\beta}_i^{*(b)}$ for $b=1, 2, \cdots, B$. The inference about $\beta_i$ will be based on the corresponding Bootstrap estimates $$
+
+**Example** (Continued)
+
+```{r boot02}
+My.lm02=function(dataset, B, histogram=TRUE){
+    # dataset = input data set
+    # B = number of bootstrap samples
+    n0=dim(dataset)[1]
+    var.name = c("Intercept",names(dataset)[-1])
+    col.num=length(names(dataset))     ## number of variables = number of parameters
+    row.num = B                        ## each bootstrap coefficients will be saved in a row
+    coef.matrx = matrix(0,ncol=col.num, nrow=B)   # bootstrap coef matrix
+    colnames(coef.matrx) = var.name
+    ##
+    m0 = lm(Math~Verbal+Sex, data = dataset)
+    original.resid=resid(m0)
+    original.fit = fitted(m0)
+    Verbal=dataset$Verbal
+    Sex=dataset$Sex
+    ##
+    for (i in 1:B){
+         boot.resid = sample(original.resid, n0, replace=TRUE)  ## Bootstrap residuals
+         boot.Math = original.fit + boot.resid  ## bootstrap YYY
+         boot.m = lm(boot.Math~Verbal+Sex)      ## Bootstrap model
+         coef.matrx[i,] = coef(boot.m)            ## save the bootstrap coef to the matrix
+    }
+    ## original linear regression model
+    # m0 = lm(Math~Verbal+Sex, data = dataset)
+    cof.m0=summary(m0)$coef
+    q.025=function(x) quantile(x, 0.025)
+    q.975=function(x) quantile(x, 0.975)
+    Boot.LCI.025=apply(coef.matrx,2,q.025)
+    Boot.UCI.975=apply(coef.matrx,2,q.975)
+    new.coef=round(cbind(cof.m0, cbind(BT02.LCI.025=Boot.LCI.025, BT02.UCI.975=Boot.UCI.975)),4)
+    if(histogram==TRUE){
+       hist(coef.matrx[,1], main=paste("Bootstrap (Resid) Distribution \n of Coefficient:",var.name[1]))
+       hist(coef.matrx[,2], main=paste("Bootstrap (Resid) Distribution \n of Coefficient:",var.name[2]))
+       hist(coef.matrx[,3], main=paste("Bootstrap (Resid) Distribution \n of Coefficient:",var.name[3]))
+    }
+    list(boot.coef=coef.matrx, coefficient=new.coef) # two types of outputs vailable from the function
+}
+My.lm02(dataset=sat, B=1000, histogram=TRUE)$coefficient 
+```
+
+### 3.4. Parametric Bootstrap sampling
+
+This bootstrap is similar to *Monte Carlo* simulation. We assume the residuals are normally distributed with a constant variance. Based on this assumption, we estimated the common variance from the residuals and then **generate residuals from the normal distribution** and assign the generated values to the fitted values based on the original data set.
+
+The steps of this Bootstrap regression is almost identical to the above method.
+
+We only modify the above code to get a parametric bootstrap regression model.
+
+```{r boot03}
+My.lm03=function(dataset, B, histogram=TRUE){
+    # dataset = input data set
+    # B = number of bootstrap samples
+    n0=dim(dataset)[1]
+    var.name = c("Intercept",names(dataset)[-1])
+    col.num=length(names(dataset))     ## number of variables = number of parameters
+    row.num = B                        ## each bootstrap coefficients will be saved in a row
+    coef.matrx = matrix(0,ncol=col.num, nrow=B)   # bootstrap coef matrix
+    colnames(coef.matrx) = var.name
+    ##
+    m0 = lm(Math~Verbal+Sex, data = dataset)
+    original.resid=resid(m0)
+    sig = sd(original.resid)
+    original.fit = fitted(m0)
+    Verbal=dataset$Verbal
+    Sex=dataset$Sex
+    ##
+    for (i in 1:B){
+         boot.resid = rnorm(n0, mean=0, sd = sig)    ## Parametric Bootstrap residuals
+         boot.Math = original.fit + boot.resid       ## bootstrap YYY
+         boot.m = lm(boot.Math~Verbal+Sex)           ## Bootstrap model
+         coef.matrx[i,] = coef(boot.m)               ## save the bootstrap coef to the matrix
+    }
+    ## original linear regression model
+    # m0 = lm(Math~Verbal+Sex, data = dataset)
+    cof.m0=summary(m0)$coef
+    q.025=function(x) quantile(x, 0.025)
+    q.975=function(x) quantile(x, 0.975)
+    Boot.LCI.025=apply(coef.matrx,2,q.025)
+    Boot.UCI.975=apply(coef.matrx,2,q.975)
+    new.coef=round(cbind(cof.m0, cbind(BT03.LCI.025=Boot.LCI.025, BT03.UCI.975=Boot.UCI.975)),4)
+    if(histogram==TRUE){
+       hist(coef.matrx[,1], main=paste("Bootstrap (parametric) Distribution \n of Coefficient:",var.name[1]))
+       hist(coef.matrx[,2], main=paste("Bootstrap (parametric) Distribution \n of Coefficient:",var.name[2]))
+       hist(coef.matrx[,3], main=paste("Bootstrap (parametric) Distribution \n of Coefficient:",var.name[3]))
+    }
+    list(boot.coef=coef.matrx, coefficient=new.coef) # two types of outputs vailable from the function
+}
+My.lm03(dataset=sat, B=1000, histogram=TRUE)$coefficient 
+```
+
+## 4. Potential Issue in Knitting HTML: Update Current Version of Pandoc
+
+Following code updates the old version of Pandoc.
+
+```{}
+# Download pandoc 2.7.1 built with ghc-8.6.4, and instruct
+# RStudio + rmarkdown to use it.
+
+local({
+	
+	# The directory where Pandoc will be extracted. Feel free
+	# to adjust this path as appropriate.
+	dir <- "~/rstudio-pandoc"
+	
+	# The version of Pandoc to be installed.
+	version <- "2.7.1"
+	
+	# Create and move to the requested directory.
+	dir.create(dir, showWarnings = FALSE, recursive = TRUE)
+	owd <- setwd(dir)
+	on.exit(setwd(owd), add = TRUE)
+	
+	# Construct path to pandoc.
+	root <- "https://s3.amazonaws.com/rstudio-buildtools"
+	suffix <- sprintf("pandoc-%s-windows-x86_64.zip", version)
+	url <- file.path(root, "pandoc-rstudio", version, suffix)
+	
+	# Download and extract pandoc.
+	file <- basename(url)
+	utils::download.file(url, destfile = file)
+	utils::unzip(file)
+	unlink(file)
+	
+	# Write .Renviron to update the version of Pandoc used.
+	entry <- paste("RSTUDIO_PANDOC", shQuote(path.expand(dir)), sep = " = ")
+	contents <- if (file.exists("~/.Renviron")) readLines("~/.Renviron")
+	filtered <- grep("^RSTUDIO_PANDOC", contents, value = TRUE, invert = TRUE)
+	amended <- union(filtered, entry)
+	writeLines(amended, "~/.Renviron")
+	
+	# Report change to the user.
+	writeLines("Updated .Renviron:\n")
+	writeLines(amended)
+	writeLines("\nPlease restart RStudio for these changes to take effect.")
+	
+})
+```
