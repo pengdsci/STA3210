@@ -1,0 +1,407 @@
+---
+title: "Data Input and Output in R"
+author: "Cheng Peng "
+date: "West Chester University"
+output:
+  html_document: 
+    toc: yes
+    toc_depth: 4
+    toc_float: yes
+    fig_width: 6
+    fig_caption: yes
+    number_sections: yes
+    theme: readable
+  word_document: 
+    toc: yes
+    toc_depth: 4
+    fig_caption: yes
+    keep_md: yes
+  pdf_document: 
+    toc: yes
+    toc_depth: 4
+    fig_caption: yes
+    number_sections: yes
+editor_options: 
+  chunk_output_type: console
+---
+
+```{=html}
+
+<style type="text/css">
+
+/* Cascading Style Sheets (CSS) is a stylesheet language used to describe the presentation of a document written in HTML or XML. it is a simple mechanism for adding style (e.g., fonts, colors, spacing) to Web documents. */
+
+h1.title {  /* Title - font specifications of the report title */
+  font-size: 24px;
+  color: DarkRed;
+  text-align: center;
+  font-family: "Gill Sans", sans-serif;
+}
+h4.author { /* Header 4 - font specifications for authors  */
+  font-size: 20px;
+  font-family: system-ui;
+  color: DarkRed;
+  text-align: center;
+}
+h4.date { /* Header 4 - font specifications for the date  */
+  font-size: 18px;
+  font-family: system-ui;
+  color: DarkBlue;
+  text-align: center;
+}
+h1 { /* Header 1 - font specifications for level 1 section title  */
+    font-size: 22px;
+    font-family: "Times New Roman", Times, serif;
+    color: navy;
+    text-align: center;
+}
+h2 { /* Header 2 - font specifications for level 2 section title */
+    font-size: 20px;
+    font-family: "Times New Roman", Times, serif;
+    color: navy;
+    text-align: left;
+}
+
+h3 { /* Header 3 - font specifications of level 3 section title  */
+    font-size: 18px;
+    font-family: "Times New Roman", Times, serif;
+    color: navy;
+    text-align: left;
+}
+
+h4 { /* Header 4 - font specifications of level 4 section title  */
+    font-size: 18px;
+    font-family: "Times New Roman", Times, serif;
+    color: darkred;
+    text-align: left;
+}
+
+body { background-color:white; }
+
+.highlightme { background-color:yellow; }
+
+p { background-color:white; }
+
+</style>
+```
+
+```{r setup, include=FALSE}
+# Detect, install and load packages if needed.
+if (!require("knitr")) {
+   install.packages("knitr")
+   library(knitr)
+}
+if (!require("leaflet")) {
+   install.packages("leaflet")
+   library(leaflet)
+}
+if (!require("EnvStats")) {
+   install.packages("EnvStats")
+   library(EnvStats)
+}
+if (!require("MASS")) {
+   install.packages("MASS")
+   library(MASS)
+}
+if (!require("phytools")) {
+   install.packages("phytools")
+   library(phytools)
+}
+#
+# specifications of outputs of code in code chunks
+knitr::opts_chunk$set(echo = FALSE,      # include code chunk in the output file
+                      warnings = FALSE,  # sometimes, you code may produce warning messages,
+                                         # you can choose to include the warning messages in
+                                         # the output file. 
+                      messages = FALSE,  #
+                      results = TRUE     # you can also decide whether to include the output
+                                         # in the output file.
+                      )   
+```
+
+
+<!-- Data Input and Output in R -->
+
+# Introduction
+
+Loading data into R can be quite frustrating since there so many different ways available for different types data files. We compile a short note to list some of these functions that commonly used to read the most commonly used formats of data in practice. We may also want to use some data sets built in some libraries (packages) in R for the purpose of illustration and practice.
+
+# Built-in Data
+
+Build-in data are also ready in R format. To get the list of available data sets in **base R**, we can use data(). However, if we want to get the list of data sets available **in a package**, we first need to **load that package** then **data()** command shows the available data sets in that package.
+
+For example, the library `datasets` in base R has a number of built-in data sets, we can use command `data()` or `ls("package:datasets")` to list all of these built-in data sets. When opening the R session, all built-in data sets in library `datasets` are all automatically loaded to the current working directory. We can simply use any of these data set  The well-known `iris` is one of these built-in data sets. Next, we make a pair-wise scatter plot for all numerical variables in the iris data set in the following
+
+```{r fig.align='center', fig.height=5, fig.width=5, fig.cap = "Pair-wise scatter plot of iris data"}
+plot(iris[,-5])  # the 5th column is species of iris flower.
+```
+
+To use a built-in data set that is not in the library `datasets` in base R, we need to load the library first. After the library is loaded, we can use command to list all data sets in that library. For example, `PimaIndiansDiabetes2` is a frequently used data set in logistic regression modeling. It is a built-in data set in the library `mlbench`. If we don't load library `mlbench` (Machine Learning Benchmark Problems), we will not be able to access that data set.
+
+```{}
+summary(PimaIndiansDiabetes2)
+```
+
+The message returned from the above code is `Error in summary(PimaIndiansDiabetes2): object 'PimaIndiansDiabetes2' not found`. However, if we load the library first, then generate the summary table, we will have
+
+```{r}
+if (!require("mlbench")) {      # check whether *mlbench* is installed in the machine 
+   install.packages("mlbench")  # if not, install it
+   library(mlbench)             # then load the package!
+}
+data(PimaIndiansDiabetes2)      # load the specific data set to the working directory
+summary(PimaIndiansDiabetes2)   # use the data set for analysis
+```
+
+We can also use `data()` to list all buit-in data set in the package
+
+```{r}
+library(mlbench)             # load the package available in the machine
+data(package = 'mlbench')    # list all data sets available in the package
+```
+
+**Note**: if the package name is not specified in the argument of `data()`, **all** built-in data sets in **all loaded packages** will be listed!
+
+
+# Loading External Data Sets
+
+Loading an external data set to can be a challenge depending on the format and the structure of the data.
+
+
+> Before moving on and discover how to load data into R, it might be useful to go over the following checklist that will make it easier to import the data correctly into R:
+
+
+* If working with spreadsheets, the first row is usually reserved for the header, while the first column is used to identify the sampling unit;
+
+* Avoid names, values, or fields with blank spaces. Otherwise, each word will be interpreted as a separate variable, resulting in errors that are related to the number of elements per line in your data set;
+
+* If we want to concatenate words, inserting a `.` in between two words instead of a space;
+Short names are preferred over longer names;
+
+* Try to avoid using names that contain symbols, such as ?, $,%, ^, &, *, (, ),-,#, ?,,,<,>, /, |, \, [ ,] ,{, and };
+
+* Delete any comments in the Excel file to avoid extra columns or NA’s to be added to the file; and
+
+* Make sure that any missing values in the data set are indicated with NA.
+
+
+## Preparing R Workspace
+
+
+It is a good practice to empty all R objects defined in other R sessions to avoid miss-use (unintentional-use) of R objects with simple easy names that were defined in the other sessions.  
+
+We might want to start an environment that is **NOT** filled with data and values from other sessions. The simplest way is to delete all existing R objects before starting new analysis using the following line of code
+
+```{r}
+rm(list=ls())
+```
+
+The `rm()` function removes objects from a specified environment. We can then use `ls()` to check whether all previously defined R objects were removed.
+
+
+## Setting-up Working Directory
+
+It is dependent on whether you are writing R script or RMarkdown. If writing an R script, it is suggested to set-up a working directory for the specific analysis task using the following R function
+
+```{}
+setwd("<location of your dataset>")
+```
+
+If writing RMarkdown document, by the default, the folder we save the RMarkdown document is the automatically set as working directory (also called document directory). `setwd()` in the code chunk does not work in RMarkdown! 
+
+
+## Read Common Files into R
+
+The following basic R functions focus on getting spreadsheets into R, rather than Excel or other type of files. There are ways of importing other files into R using various R functions in different packages.
+
+
+### Read TXT files with read.table()
+
+If you have a `.txt` or a `tab-delimited` text file, we can easily import it with the basic R function read.table(). 
+
+* **Data with No Column Names**
+
+In other words, the contents of the file will look similar to this
+
+```
+1   6   a
+2   7   b
+3   8   c
+4   9   d
+5   10  e
+```
+
+If the above data file is saved in a local folder, say, `C:\peng\eBooks\STA321\fakeDat.txt`, we use the following code to load this data to R
+
+```
+myFakeData <- read.table("C:\\peng\\eBooks\\STA321\\fakeDat.txt")
+```
+
+
+If the above data file is on a web server, say, `http://www.someserver.com/STA321/fakeDat.txt`, we use the following code to load this data to R
+
+```
+myFakeData <- read.table("http://www.someserver.com/STA321/fakeDat.txt")
+```
+
+* **Data with Good Column Names**
+
+
+The above fake data file does not have column names, the loaded R data set will be automatically assigned names `V1`, `V2`, and `V3` to the three corresponding columns. If the data file has column names and we want to use it in the R data frame, we need to use the `header` argument. 
+
+```
+ID num  char
+1   6   a
+2   7   b
+3   8   c
+4   9   d
+5   10  e
+```
+We can use the following code to load the data correctly in R.
+
+```
+myFakeData <- read.table("C:\\peng\\eBooks\\STA321\\fakeDat.txt", header = TRUE)
+```
+or
+
+```
+myFakeData <- read.table("http://www.someserver.com/STA321/fakeDat.txt", header = TRUE)
+```
+
+* **Data With Bad Column Names**
+
+Sometimes, we may have a data file with messy or unwanted column names, some comments about the data set, we can use `skip` argument to skip certain number of rows when read the data file to R then rename the columns with appropriate variable names. For example, if the data file has comments like
+
+```
+This data set was collected by someone in the cloud.
+the column names also violates the naming convention.
+ID num@3  char#
+1   6   a
+2   7   b
+3   8   c
+4   9   d
+5   10  e
+```
+We can read the above data in R and rename the columns using the following code
+
+```
+myFakeData <- read.table("C:\\peng\\eBooks\\STA321\\fakeDat.txt", skip = 3)
+names(myFakeData) = c("var1", "var2", "var3")
+```
+
+### Data Values Separated By Special Symbol
+
+If the data file has a special separator, we need to use argument `sep=` to specify the separator.
+
+```
+This data set was collected by someone in the cloud.
+the column names also violates the naming convention.
+ID @ num @  char
+1  @  6  @  a
+2  @  7  @  b
+3  @  8  @  c
+4  @  9  @  d
+5  @ 10  @  e
+```
+The following code will accomplish the task.
+
+```
+myFakeData <- read.table("C:\\peng\\eBooks\\STA321\\fakeDat.txt", header = TRUE, skip = 2, sep = "@")
+```
+
+### Importing a CSV into R
+
+If the values were separated with a `,` or `;`, we usually are working with a `.csv` file. Its contents will look similar to this:
+
+```
+Col1,Col2,Col3
+1,    2,   a
+4,    5,   b
+7,    8,   d
+```
+
+
+To successfully load this file into R, we can also use the `read.table()` function in which we specify the separator character, or we can use the `read.csv()` or `read.csv2()` functions. The former function is used if the separator is a `,`, the latter if `;` is used to separate the values in your data file.
+
+Remember that the `read.csv()` as well as the `read.csv2()` function are almost identical to the `read.table()` function, with the sole difference that they have the header and fill arguments set as TRUE by default.
+
+
+
+## Import SAS, SPSS, and Other Data Sets into R
+
+R is a programming language and software environment for statistical computing. sometimes we need to import data from advanced statistical software programs such as SAS and SPSS. We need to install specialized packages to achieve this task. The well-known package `foreign` has several R function to read different data sets generated from different software programs. 
+
+### Import SPSS Files into R
+
+The R package `foreign` has a function `read.spss()` to read SPSS data set (with extension `.sav`). The code is something like
+
+```
+# Activate the `foreign` library
+library(foreign)
+
+# Read the SPSS data
+mySPSSData <- read.spss("example.sav")
+```
+
+If we want the result to be displayed in a data frame, we can set the `to.data.frame` argument of the `read.spss()` function to `TRUE`. Furthermore, if we **do NOT** want the variables with value labels to be converted into R factors with corresponding levels, we should set the `use.value.labels` argument to `FALSE`:
+
+```
+# Activate the `foreign` library
+library(foreign)
+
+# Read the SPSS data
+mySPSSData <- read.spss("example.sav",
+                       to.data.frame=TRUE,
+                       use.value.labels=FALSE)
+```
+
+Remember that factors are variables that can only contain a limited number of different values. As such, they are often called “categorical variables”. The different values of factors can be labeled and are therefore often called “value labels”
+
+### mport Stata Files into R
+
+To import Stata files, we use the `read.dta()` function in package `foreign` to read data into R:
+
+```
+# Activate the `foreign` library
+library(foreign)
+
+# Read Stata data into R
+mydata <- read.dta("<Path to file>") 
+```
+
+### Import Systat Files into R
+
+If you want to get Systat files into R, we also want to use the foreign package, just like shown below:
+
+```
+# Activate the `foreign` library
+library(foreign)
+
+# Read Systat data
+mydata <- read.systat("<Path to file>") 
+```
+
+### Import SAS Files into R
+
+We need to install the `sas7bdat` package and load it, and then invoke the `read.sas7bdat()` function contained within the package.
+
+```
+# Activate the `sas7bdat` library
+library(sas7bdat)
+
+# Read in the SAS data
+mySASData <- read.sas7bdat("example.sas7bdat")
+```
+
+**Note that** we can also use the foreign library to load in SAS data in R. In such cases, we’ll start from a SAS Permanent Dataset or a `SAS XPORT` Format Library with the `read.ssd()` and `read.xport()` functions, respectively. But this is relatively inconvenient.
+
+
+
+
+
+
+
+
+
+
+

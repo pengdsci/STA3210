@@ -1,0 +1,478 @@
+---
+title: "2. Bootstrap Simple Linear Regression Model"
+author: 'Cheng Peng'
+date: "Lecture Note: STA321 Topics of Advanced Statistics"
+output:
+  html_document: 
+    toc: yes
+    toc_depth: 4
+    toc_float: yes
+    fig_width: 4
+    fig_caption: yes
+    number_sections: yes
+    theme: readable
+    fig_height: 4
+  word_document: 
+    toc: yes
+    toc_depth: 4
+    fig_caption: yes
+    keep_md: yes
+  pdf_document: 
+    toc: yes
+    toc_depth: 4
+    fig_caption: yes
+    number_sections: yes
+    fig_width: 3
+    fig_height: 3
+editor_options: 
+  chunk_output_type: inline
+always_allow_html: true
+---
+
+```{=html}
+
+<style type="text/css">
+
+/* Cascading Style Sheets (CSS) is a stylesheet language used to describe the presentation of a document written in HTML or XML. it is a simple mechanism for adding style (e.g., fonts, colors, spacing) to Web documents. */
+
+h1.title {  /* Title - font specifications of the report title */
+  font-size: 24px;
+  color: DarkRed;
+  text-align: center;
+  font-family: "Gill Sans", sans-serif;
+}
+h4.author { /* Header 4 - font specifications for authors  */
+  font-size: 20px;
+  font-family: system-ui;
+  color: DarkRed;
+  text-align: center;
+}
+h4.date { /* Header 4 - font specifications for the date  */
+  font-size: 18px;
+  font-family: system-ui;
+  color: DarkBlue;
+  text-align: center;
+}
+h1 { /* Header 1 - font specifications for level 1 section title  */
+    font-size: 22px;
+    font-family: system-ui;
+    color: navy;
+    text-align: left;
+}
+h2 { /* Header 2 - font specifications for level 2 section title */
+    font-size: 20px;
+    font-family: "Times New Roman", Times, serif;
+    color: navy;
+    text-align: left;
+}
+
+h3 { /* Header 3 - font specifications of level 3 section title  */
+    font-size: 18px;
+    font-family: "Times New Roman", Times, serif;
+    color: navy;
+    text-align: left;
+}
+
+h4 { /* Header 4 - font specifications of level 4 section title  */
+    font-size: 18px;
+    font-family: "Times New Roman", Times, serif;
+    color: darkred;
+    text-align: left;
+}
+
+body { background-color:white; }
+
+.highlightme { background-color:yellow; }
+
+p { background-color:white; }
+
+</style>
+```
+```{r setup, include=FALSE}
+# Detect, install and load packages if needed.
+if (!require("knitr")) {
+   install.packages("knitr")
+   library(knitr)
+}
+if (!require("MASS")) {
+   install.packages("MASS")
+   library(MASS)
+}
+if (!require("nleqslv")) {
+   install.packages("nleqslv")
+   library(nleqslv)
+}
+#
+if (!require("pander")) {
+   install.packages("pander")
+   library(pander)
+}
+
+if (!require("psych")) {   
+  install.packages("psych")
+   library(psych)
+}
+if (!require("MASS")) {   
+  install.packages("MASS")
+   library(MASS)
+}
+
+
+# specifications of outputs of code in code chunks
+knitr::opts_chunk$set(echo = TRUE,      # include code chunk in the output file
+                      warnings = FALSE,  # sometimes, you code may produce warning messages,
+                                         # you can choose to include the warning messages in
+                                         # the output file. 
+                      messages = FALSE,  #
+                      results = TRUE     # you can also decide whether to include the output
+                                         # in the output file.
+                      )   
+```
+
+\
+
+# Introduction
+
+In this note, we introduce how to use the bootstrap method to make inferences about the regression coefficients. Parametric inference of the regression models heavily depends on the assumptions of the underlying model. If there are violations of the model assumptions the resulting p-values produced in the outputs of software programs could be valid. In this case, if the sample size is large enough, we can use the Bootstrap method to make the inferences without imposing the distributional assumption of the response variable (hence the residuals).
+
+# Data Set and Practical Questions
+
+The data set we use in this note is taken from the well-known [Kaggle](https://www.kaggle.com/), a web-based online community of data scientists and machine learning practitioners, that allows users to find and publish data sets, explore and build models in a web-based data-science environment, work with other data scientists and machine learning engineers, and enter competitions to solve data science challenges (-- Wikipedia).
+
+## Data Description
+
+The data in this note was found from [Kaggle](https://www.kaggle.com/). I renamed the original variables and modified the sales dates to define the sales year indicator. The modified data set was uploaded to the course web page at <https://raw.githubusercontent.com/pengdsci/sta321/main/ww03/w03-Realestate.csv>. 
+
+* ObsID
+* TransactionYear($X_1$): transaction date	
+* HouseAge($X_2$): house age	
+* Distance2MRT($X_3$): distance to the nearest MRT station	
+* NumConvenStores($X_4$): number of convenience stores	
+* Latitude($X_5$): latitude	
+* Longitude($X_6$): longitude	
+* PriceUnitArea($Y$): house price of unit area
+
+## Practical Question
+
+The primary practical question is to see how the variables in the data set or derived variables from the data set affect the price of the unit area. Since we focus on the simple linear regression model in this module. We will pick one of the variables to perform the simple linear regression model.
+
+## Exploratory Data Analysis
+
+We first explore the pairwise association between the variables in the data set. Since longitude and latitude are included in the data set, we first make a map to see if we can define a variable according to the sales based on the geographic regions.
+
+To start, we load the data to R.
+
+```{r}
+realestate <- read.csv("https://raw.githubusercontent.com/pengdsci/sta321/main/ww03/w03-Realestate.csv", header = TRUE)
+realestate <- realestate[, -1]
+# longitude and latitude will be used to make a map in the upcoming analysis.
+lon <- realestate$Longitude
+lat <- realestate$Latitude 
+```
+Next, we make a scatter plot of longitude and latitude to see the potential to create a geographic variable. The source does not mention the geographical locations where this data was collected. In the upcoming analysis, we will draw maps and will see the site of the houses sold.
+
+```{r include = FALSE, fig.align='center'}
+plot(lon, lat, main = "Sites of houses sold in 2012-2013")
+```
+
+```{r echo = FALSE, fig.align='center', fig.width=8, fig.height=5, fig.cap="Property locations"}
+library(leaflet)
+m <- leaflet() %>%
+  addTiles() %>%  # Add default OpenStreetMap map tiles
+  addCircleMarkers(data = realestate, lng=lon, lat=lat, popup=realestate$PriceUnitArea,
+                   color = "navy", radius = ~sqrt((1/46)*realestate$PriceUnitArea))
+m  # Print the map
+```
+
+
+We can see that there are clusters in the plot. We can use this information to define a cluster variable to capture the potential differences between the geographic clusters in terms of the sale prices.
+
+
+We now make a simple pairwise plot to show the association between variables and pick one as an example for the simple linear regression model.
+
+
+
+```{r fig.align='center', fig.width=7, fig.height=7, fig.cap="Pairwise scatter plot."}
+pairs.panels(realestate[, -c(1,5,6)], pch=21, main="Pair-wise Scatter Plot of r numerical variables") #to show color grouping
+```
+
+
+
+The above pair-wise plot shows that some of the pair-wise associations are stronger than others. We will revisit this data set and use a multiple linear regression model to see which set of variables has a statistically significant impact on the sale prices.
+
+<font color = "darkred" size = 5><b> The pair-wise scatter plot is used only for numerical variables to display the relationship between them! Categorical variables (including numerically encoded ones) should not be included in any pairwise scatter plot!</b></font>
+
+
+
+
+In this module, We choose the distance to the nearest MRT station and the explanatory variable in the analysis.
+
+# Simple Linear Regression: Review
+
+In this section, I list the basis of the simple linear regression model. I will use some mathematical equations to explain some key points. You can find the basic commands to create mathematical equations in the R Markdown on the following web page: <https://rpruim.github.io/s341/S19/from-class/MathinRmd.html>.
+
+## Structure and Assumptions of Simple Linear Regression Model
+
+Let $Y$ be the response variable (in our case, Y = Price of unit area and is assumed to be random) and X be the explanatory variable (in our case, X = distance to the nearest MRT station, X is assumed to be non-random). The mathematics expression of a typical simple linear regression is given by
+
+$$
+y = \beta_0 + \beta_1 x + \epsilon
+$$
+
+### Assumptions
+
+The basic assumptions of a linear regression model are listed below
+
+* The responsible variable ($y$) and the explanatory variable ($x$) have a linear trend,
+
+* The residual $\epsilon \sim N(0, \sigma^2)$. Equivalently, $y \sim N(\beta_0 + \beta_1 x)$.
+
+### Interpretation of Regression Coefficients
+
+The simple linear regression model has three unknown parameters: intercept parameters ($\beta_0$), slope parameter ($\beta_1$), and the variance of the response variable ($\sigma^2$). The key parameter of interest is the slope parameter since it captures the information on whether the response variable and the explanatory variable are (linearly) associated. 
+
+* If $y$ and $x$ are not linearly associated, that is, $\beta_1 = 0$, then $\beta_0$ is the mean of $y$. 
+
+* If $\beta_1 > 0$, then $y$ and $x$ are positively linearly correlated. Furthermore, $\beta_1$ is the increment of the response when the explanatory variable increases by one unit.
+
+* We can similarly interpret $\beta_1$ when it is negative.
+
+### Potential Violations to Model Assumptions
+
+There are potential violations of model assumptions. These violations are usually reflected in the residual plot in data analysis. You can find different residual plots representing different violations from any linear regression model. The residual plot that has no model violation should be similar to the following figure.
+
+```{r fig.align='center', fig.width=5, fig.height=4, fig.cap="Simulated normal residuals with mean zero and constant variance."}
+# I arbitrarily choose n = 70, mu =0 and constant variance 25
+residual<- rnorm(70, 0, 5)  
+plot(1:70, residual, pch = 19, col = "navy", 
+     xlab = "", ylab = "",
+     ylim=c(-15, 15),
+     main = "Ideal Residual Plot")
+abline(h=1, col= "blue")
+```
+
+### Estimation of Parameters
+
+Two methods: least square estimation (LSE) and maximum likelihood estimation (MLE) yield the estimate. LSE does not use the distributional information of the response variable. The MLE uses the assumption of the normal distribution of the response variable. 
+
+When making inferences on the regression coefficients, we need to use the assumption that the response variable is normally distributed.
+
+
+# Fitting SLR to Data
+
+We use both parametric and bootstrap regression models to assess the association between the sale price and the distance to the nearest MRT station. As usual, we make a scatter plot
+
+```{r fig.align='center', fig.width=5, fig.height=5, fig.cap="Scatter plot between distance and price"}
+distance <- realestate$Distance2MRT
+price <- realestate$PriceUnitArea
+plot(distance, price, pch = 21, col ="navy",
+     main = "Relationship between Distance and Price")
+```
+The above scatter plot indicates a negative linear association between the house price and distance to the nearest MRT station.
+
+
+## Parametric SLR
+
+We use the built-in **lm()** to fit the SLR model.
+
+```{r fig.align='center', fig.height=7, fig.width=5}
+distance <- realestate$Distance2MRT
+price <- realestate$PriceUnitArea
+parametric.model <- lm(price ~ distance)
+par(mfrow = c(2,2))
+plot(parametric.model)
+```
+
+### Residual Plots
+
+We can see from the residual plots that 
+
+* The top-left residual plot has three clusters indicating that some group variable is missing.
+
+* The bottom-left plot also reveals the same pattern.
+
+* The top-right plot reals the violation of the normality assumption.
+
+* The bottom-right plot indicates that there are no serious outliers,
+
+* In addition, the top-left residual plot also has a non-linear trend. We will not do the variable transformation to fix the problem,
+
+
+### Box-Cox Transformation
+
+The Box-Cox transformation was developed to transforms the target variable so that it is close to a normal distribution. The explicit expression of the transformation is given by
+
+```{r echo = FALSE, fig.align='center', out.width="30%"}
+include_graphics("img/boxcox.png")
+```
+
+Many statistical procedures such linear regression models are built on the normal distribution. This transformation allows us to transform some normally distributed variables so that normal distrbution based procedures can be for these non-normal variables. 
+
+Next, we perform the Box-cox transformation to the response variable.
+
+```{r fig.align='center', fig.width=5, fig.height=5}
+boxcox(lm(price ~ distance), lambda = seq(-1, 1, 1/10))
+```
+
+The above plot indicates that transformation of the response is worthwhile. The convenient value of $\lambda = 1/4$. 
+
+```{r fig.align='center', fig.width=7, fig.height=7, fig.cap="Box-cox transformed SLR."}
+lambda = 1/4
+price.25 = (price^lambda-1)/lambda
+boxcox.m = lm(price.25 ~ distance)
+##
+par(mfrow=c(2,2))
+plot(boxcox.m)
+```
+
+The residual plots show some improvements, but there are still patterns in the plots. We will use bootstrap procedure to fit linear regression model in the subsequent subsections.
+
+
+### Inferential Statistics
+
+The inferential statistics based on the above model are summarized in the following table.
+
+```{r}
+reg.table <- coef(summary(parametric.model))
+pander(reg.table, caption = "Inferential statistics for the parametric linear
+      regression model: house sale price and distance to the nearest MRT station")
+```
+
+We will not discuss the p-value since the residual plots indicate potential violations of the model assumption. In other words, the p-value may be wrong.  We will wait for the bootstrap regression in the next sub-section.
+
+A descriptive interpretation of the slope parameter is that, as the distance increases by $1000$ feet, the corresponding price of unit area decreases by roughly $\$7.3$.
+
+## Bootstrap Regression
+
+There are two different non-parametric bootstrap methods for bootstrap regression modeling. We use the intuitive approach: sampling cases method.
+
+### Bootstrapping Cases
+
+The idea is to take a bootstrap sample of the observation ID and then use the observation ID to take the corresponding records to form a bootstrap sample.
+
+```{r fig.align='center', out.width="100%", fig.cap="Bootstrap Cases workflow."}
+include_graphics("img/w03-BootstrapCases.png")
+```
+
+Next, we find the bootstrap estimates of the above simple linear regression model.
+
+
+```{}
+vec.id <- 1:length(price)   # vector of observation ID
+boot.id <- sample(vec.id, length(price), replace = TRUE)   # bootstrap obs ID.
+boot.price <- price[boot.id]           # bootstrap price
+boot.distance <- distance[boot.id]     # corresponding bootstrap distance
+```
+
+With bootstrap price and bootstrap distance, we fit a bootstrap linear regression. 
+
+
+
+
+### Bootstrap Regression 
+
+If we repeat the bootstrap sampling and regression modeling many times, we will have many bootstrap regression coefficients. These bootstrap coefficients can be used to construct the bootstrap confidence interval of the regression coefficient. Since the sample size is 414. The bootstrap regression method will produce a robust confidence interval of the slope of the distance. If 0 is not in the confidence interval, then the slope is significant.
+
+The following steps construct bootstrap confidence intervals of regression coefficients.
+
+```{r}
+B <- 1000    # number of bootstrap replicates
+# define empty vectors to store bootstrap regression coefficients
+boot.beta0 <- NULL 
+boot.beta1 <- NULL
+## bootstrap regression models using for-loop
+vec.id <- 1:length(price)   # vector of observation ID
+for(i in 1:B){
+  boot.id <- sample(vec.id, length(price), replace = TRUE)   # bootstrap obs ID.
+  boot.price <- price[boot.id]           # bootstrap price
+  boot.distance <- distance[boot.id]     # corresponding bootstrap distance
+  ## regression
+  boot.reg <-lm(price[boot.id] ~ distance[boot.id]) 
+  boot.beta0[i] <- coef(boot.reg)[1]   # bootstrap intercept
+  boot.beta1[i] <- coef(boot.reg)[2]   # bootstrap slope
+}
+```
+
+The above code generated boostrap estimates of regression coefficients $\beta_0$ and $\beta_1$. We visualize the bootstrap sampling distributions of the regression coefficients.
+
+
+```{r echo = FALSE, fig.align='center', fig.width=7, fig.height=4, fig.cap="Bootstrap sampling distribution (with reference normal density curve)"}
+##
+fun0 <- dnorm(sort(boot.beta0), mean = mean(boot.beta0), sd = sd(boot.beta0))
+fun1 <- dnorm(sort(boot.beta1), mean = mean(boot.beta1), sd = sd(boot.beta1))
+###
+par(mfrow = c(1,2))
+hist(boot.beta0, breaks = 18, prob = TRUE, xlab="bootstrap estimates of the intercept",
+     main = "Bootstrap Sampling Distribution \n Intercept", cex.main = 0.8)
+lines(density(boot.beta0), col = 4, lwd = 2)
+lines(sort(boot.beta0), fun0, col = 2, lwd = 2)
+legend("topright", c("loess", "normal"), col = c(4,2), lwd=rep(2,2), cex = 0.5, bty = "n")
+###
+hist(boot.beta1, breaks = 18, prob = TRUE, xlab="bootstrap estimates of the slope",
+     main = "Bootstrap Sampling Distribution \n Slope", cex.main = 0.8)
+lines(density(boot.beta1), col = 4, lwd = 2)
+lines(sort(boot.beta1), fun1, col = 2, lwd = 2)
+legend("topright", c("loess", "normal"), col = c(4,2), lwd=rep(2,2), cex = 0.5, bty = "n")
+```
+
+
+
+
+```{r}
+##  95% bootstrap confidence intervals
+boot.beta0.ci <- quantile(boot.beta0, c(0.025, 0.975), type = 2)
+boot.beta1.ci <- quantile(boot.beta1, c(0.025, 0.975), type = 2)
+boot.coef <- data.frame(rbind(boot.beta0.ci, boot.beta1.ci)) 
+names(boot.coef) <- c("2.5%", "97.5%")
+pander(boot.coef, caption="Bootstrap confidence intervals of regression coefficients.")
+```
+
+The 95% bootstrap confidence interval of the slope is $(-0.0079753,-0.0065808)$. Since both limits are negative, the price of the unit area and the distance to the nearest MRT station are negatively associated. Note that zero is NOT in the confidence interval. Both parametric and bootstrap regression models indicate that the slope coefficient is significantly different from zero. This means the sale price and the distance to the nearest MRT station are statistically correlated.
+
+## Concluding Remarks
+
+Here are several remarks about the parametric and bootstrap regression models.
+
+* If there are serious violations to the model assumptions and the sample size is not too small, bootstrap confidence intervals of regression coefficients are more reliable than the parametric p-values since the bootstrap method is non-parametric inference.
+
+* If the form of the regression function is misspecified, the bootstrap confidence intervals are valid based on the misspecified form of the relationship between the response and the explanatory variable. However, the p-values could be wrong if the residual is not normally distributed.
+
+* If the sample size is significantly large, both Bootstrap and the parametric methods yield the same results. 
+
+* If the sample size is too small, the bootstrap confidence interval could still be correct (depending on whether the sample empirical distribution is close to the true joint distribution of variables in the data set). The parametric regression is very sensitive to the normal assumption of the residual!
+
+* General Recommendations
+
+  + If there is no violation of the model assumption, always use the parametric regression. The residual plots reveal potential violations of the model assumption.
+  
+  + If there are potential violations to the model assumptions and the violations cannot be fixed by remedy methods such as variable transformation, the bootstrap method is more reliable.  
+  
+  + if the same size is significantly large, bootstrap and parametric methods yield similar results.
+
+# Data Set Selection for Project One
+
+It is time to find a data set for project #1 focusing on the parametric and non-parametric linear regression model. As I did in this note, you will choose one of the variables in this data set to complete this week's assignment.
+
+## Data Set Requirement
+
+The basic requirements of the data set are:
+
+* The sample size must be bigger than 100.
+
+* at least 4 explanatory variables. 
+
+* at least 2 categorical variables and two numerical variables. You can define categorical from numerical variables if you wish to.
+
+After you find your data set, please go to the discussion board to post your data set and link to your data set so your classmates will not use the same data set for the project.
+
+## Web Sites with Data Sets
+
+The following sites have some data sets. please find a data set you are interested in for the first project and this week's assignment. You can also choose data from other sites.  
+
+* My course project data repository: <https://pengdsci.github.io/datasets/>
+
+* 10 open data sets for linear regression: <https://lionbridge.ai/datasets/10-open-datasets-for-linear-regression/>
+
+* UFL Larry Winner's Teaching Data Sets: <http://users.stat.ufl.edu/~winner/datasets.html>
+
+
