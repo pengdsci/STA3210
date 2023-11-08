@@ -1,0 +1,392 @@
+---
+title: "Writing Mathematical Equations in RMarkdown"
+author: "Cheng Peng"
+date: "Lab Note for STA321 "
+output:
+  pdf_document: 
+    toc: yes
+    toc_depth: 4
+    fig_caption: yes
+    number_sections: yes
+    fig_width: 3
+    fig_height: 3
+  word_document: 
+    toc: yes
+    toc_depth: 4
+    fig_caption: yes
+    keep_md: yes
+  html_document: 
+    toc: yes
+    toc_depth: 4
+    toc_float: yes
+    fig_width: 4
+    fig_caption: yes
+    number_sections: yes
+    theme: readable
+    fig_height: 4
+editor_options: 
+  chunk_output_type: inline
+---
+
+```{=html}
+
+<style type="text/css">
+
+/* Cascading Style Sheets (CSS) is a stylesheet language used to describe the presentation of a document written in HTML or XML. it is a simple mechanism for adding style (e.g., fonts, colors, spacing) to Web documents. */
+
+h1.title {  /* Title - font specifications of the report title */
+  font-size: 24px;
+  color: DarkRed;
+  text-align: center;
+  font-family: "Gill Sans", sans-serif;
+}
+h4.author { /* Header 4 - font specifications for authors  */
+  font-size: 20px;
+  font-family: system-ui;
+  color: DarkRed;
+  text-align: center;
+}
+h4.date { /* Header 4 - font specifications for the date  */
+  font-size: 18px;
+  font-family: system-ui;
+  color: DarkBlue;
+  text-align: center;
+}
+h1 { /* Header 1 - font specifications for level 1 section title  */
+    font-size: 22px;
+    font-family: system-ui;
+    color: navy;
+    text-align: left;
+}
+h2 { /* Header 2 - font specifications for level 2 section title */
+    font-size: 20px;
+    font-family: "Times New Roman", Times, serif;
+    color: navy;
+    text-align: left;
+}
+
+h3 { /* Header 3 - font specifications of level 3 section title  */
+    font-size: 18px;
+    font-family: "Times New Roman", Times, serif;
+    color: navy;
+    text-align: left;
+}
+
+h4 { /* Header 4 - font specifications of level 4 section title  */
+    font-size: 18px;
+    font-family: "Times New Roman", Times, serif;
+    color: darkred;
+    text-align: left;
+}
+
+body { background-color:white; }
+
+.highlightme { background-color:yellow; }
+
+p { background-color:white; }
+
+</style>
+```
+
+```{r setup, include=FALSE}
+# Detect, install and load packages if needed.
+if (!require("knitr")) {
+   install.packages("knitr")
+   library(knitr)
+}
+if (!require("MASS")) {
+   install.packages("MASS")
+   library(MASS)
+}
+if (!require("nleqslv")) {
+   install.packages("nleqslv")
+   library(nleqslv)
+}
+#
+# specifications of outputs of code in code chunks
+knitr::opts_chunk$set(echo = TRUE,      # include code chunk in the output file
+                      warnings = FALSE,  # sometimes, you code may produce warning messages,
+                                         # you can choose to include the warning messages in
+                                         # the output file. 
+                      messages = FALSE,  #
+                      results = TRUE     # you can also decide whether to include the output
+                                         # in the output file.
+                      )   
+```
+
+\
+
+
+# Intorduction
+
+This note list commands for creating mathematics formulas in RMarkdown.
+
+# Greek Letters
+
+|Symbol	  |  Script   |
+|:--------|:----------|
+|$\alpha$	| `\alpha`  |
+|$A$      |  	`A`|
+|$\beta$	|   `\beta`|
+|$B$	    |    `B`|
+|$\gamma$ | 	`\gammma`|
+|$\Gamma$ |  	`\Gamma`|
+|$\pi$    |  	`\pi`|
+|$\Pi$    | 	`\Pi`|
+|$\phi$	  |  `\phi`|
+|$\Phi$	  |  `\Phi`|
+|$\varphi$|	   `\varphi`|
+|$\theta$	|   `\theta`|
+
+# Operators
+
+
+|Symbol	  |  Script   |
+|:--------|:----------|
+|$\cos$|	`\cos`|
+|$\sin$|`\sin`|
+|$\lim$|	`\lim`|
+|$\exp$|	`\exp`|
+|$\to$|	`\to`|
+|$\infty$|	`\infty`|
+|$\equiv$|	`\equiv`|
+|$\bmod$|	`\bmod`|
+|$\times$|	`\times`|
+
+
+
+# Power and Indicies
+
+|Symbol	  |  Script   |
+|:--------|:----------|
+|$k_{n+1}$|	`k_{n+1}`|
+|$n^2$|	`n^2`|
+|$k_n^2$|	`k_n^2`|
+
+
+# Fractions and Binomials
+
+|Symbol	  |  Script   |
+|:--------|:----------|
+|$\frac{n!}{k!(n-k)!}$|	`\frac{n!}{k!(n-k)!}`|
+|$\binom{n}{k}$|	`\binom{n}{k}`|
+|$\frac{\frac{x}{1}}{x - y}$|	`\frac{\frac{x}{1}}{x - y}`|
+|$^3/_7$|	`^3/_7`|
+
+
+# Radical Roots
+
+|Symbol	  |  Script   |
+|:--------|:----------|
+|$\sqrt{k}$|	`\sqrt{k}`|
+|$\sqrt[n]{k}$|	`\sqrt[n]{k}`|
+
+
+# Sums, Integrals, and Related Symbols
+
+
+|Symbol	  |  Script   |
+|:--------|:----------|
+|$\sum_{i=1}^{10} t_i$|	`\sum_{i=1}^{10} t_i`|
+|$\int_0^\infty \mathrm{e}^{-x},\mathrm{d}x$|	`\int_0^\infty \mathrm{e}^{-x},\mathrm{d}x`|
+|$\sum$|	`\sum`|
+|$\prod$|	`\prod`|
+|$\coprod$|	`\coprod`|
+|$\bigoplus$|	`\bigoplus`|
+|$\bigotimes$|	`\bigotimes`|
+|$\bigodot$|	`\bigodot`|
+|$\bigcup$|	`\bigcup`|
+|$\bigcap$|	`\bigcap`|
+|$\biguplus$|	`\biguplus`|
+|$\bigsqcup$|	`\bigsqcup`|
+|$\bigvee$|	`\bigvee`|
+|$\bigwedge$|	`\bigwedge`|
+|$\int$|	`\int`|
+|$\oint$|	`\oint`|
+|$\iint$|	`\iint`|
+|$\iiint$|	`\iiint`|
+|$\idotsint$|	`\idotsint`|
+|$\sum_{\substack{0<i<m, \ 0<j<n}} P(i, j)$|	`\sum_{\substack{0<i<m, \ 0<j<n}} P(i, j)`|
+|$\int\limits_a^b$|	`\int\limits_a^b`|
+
+
+
+# More Special Symbols
+
+|Symbol	  |  Script   |
+|:--------|:----------|
+|$a^{\prime}$| `a^{\prime}`|
+|$a^{\prime\prime}$|	`a^{\prime\prime}`|
+|$\hat{a}$|	`\hat{a}`|
+|$\bar{a}$|	`\bar{a}`|
+|$\grave{a}$|	`\grave{a}`|
+|$\acute{a}$|	`\acute{a}`|
+|$\dot{a}$|	`\dot{a}`|
+|$\ddot{a}$|	`\ddot{a}`|
+|$\not{a}$|	`\not{a}`|
+|$\mathring{a}$|	`\mathring{a}`|
+|$\overrightarrow{AB}$|	`\overrightarrow{AB}`|
+|$\overleftarrow{AB}$|	`\overleftarrow{AB}`|
+|$a^{\prime\prime\prime}$|	`a^{\prime\prime\prime}`|
+|$\overline{aaa}$|	`\overline{aaa}`|
+|$\check{a}$|	`\check{a}`|
+|$\vec{a}$|	`\vec{a}`|
+|$\underline{a}$|	`\underline{a}`|
+|$\color{red}x$|	`\color{red}x`|
+|$\pm$|	`\pm`|
+|$\mp$|	`\mp`|
+|$\int y \mathrm{d}x$|	`\int y \mathrm{d}x`|
+|$,$|	`,`|
+|$:$|	`:`|
+|$;$|	`;`|
+|$!$|	`!`|
+|$\int y, \mathrm{d}x$|	`\int y, \mathrm{d}x`|
+|$\dots$|	`\dots`|
+|$\ldots$|	`\ldots`|
+|$\cdots$|	`\cdots`|
+|$\vdots$|	`\vdots`|
+|$\ddots$|	`\ddots`|
+
+
+
+
+# Brackets
+
+|Symbol	  |  Script   |
+|:--------|:----------|
+|$(a)$|  	`(a)`|
+|$[a]$|	  `[a]`|
+|$\{a\}$|	`\{a\}`|
+|$\langle f \rangle$|	`\langle f \rangle`|
+|$\lfloor f \rfloor$|	`\lfloor f \rfloor`|
+|$\lceil f \rceil$|	`\lceil f \rceil`|
+|$\ulcorner f \urcorner$|	`\ulcorner f \urcorner`|
+
+
+
+
+# Matrices and System of Equations
+
+## Matrix
+
+````
+$$
+X_{m,n} = 
+\begin{pmatrix}
+  x_{1,1} & x_{1,2} & \cdots & x_{1,n} \\
+  x_{2,1} & x_{2,2} & \cdots & x_{2,n} \\
+  \vdots  & \vdots  & \ddots & \vdots  \\
+  x_{m,1} & x_{m,2} & \cdots & x_{m,n} 
+\end{pmatrix}
+$$
+````
+produces
+
+$$
+X_{m,n} = 
+\begin{pmatrix}
+  x_{1,1} & x_{1,2} & \cdots & x_{1,n} \\
+  x_{2,1} & x_{2,2} & \cdots & x_{2,n} \\
+  \vdots  & \vdots  & \ddots & \vdots  \\
+  x_{m,1} & x_{m,2} & \cdots & x_{m,n} 
+\end{pmatrix}
+$$
+
+````
+$$
+M = 
+\begin{bmatrix}
+\frac{5}{6} & \frac{1}{6} & 0 \\[0.3em]
+\frac{5}{6} & 0 & \frac{1}{6} \\[0.3em]
+0 & \frac{5}{6} & \frac{1}{6}
+\end{bmatrix}
+$$
+````
+produces
+
+
+$$
+M = 
+\begin{bmatrix}
+\frac{5}{6} & \frac{1}{6} & 0 \\[0.3em]
+\frac{5}{6} & 0 & \frac{1}{6} \\[0.3em]
+0 & \frac{5}{6} & \frac{1}{6}
+\end{bmatrix}
+$$
+
+
+## Aligned Equations
+
+````
+$$
+\begin{aligned}
+Bias(\hat{\theta})  &= E(\hat{\theta}) - \theta \\
+Bias(\hat{\theta})  &= E(2 \bar{X} -1) - \theta \\
+Bias(\hat{\theta})  &= \frac{2}{n}\sum_{i=1}^n E(X_i) -1 -\theta \\
+Bias(\hat{\theta})  &= 2E(X) - 1 - \theta \\
+Bias(\hat{\theta})  &= 2 \cdot \frac{\theta+1}{2} - 1 - \theta \\
+Bias(\hat{\theta})  &= 0 \\
+\end{aligned}
+$$
+````
+
+Produces the following system of equations
+
+
+$$
+\begin{aligned}
+Bias(\hat{\theta})  &= E(\hat{\theta}) - \theta \\
+Bias(\hat{\theta})  &= E(2 \bar{X} -1) - \theta \\
+Bias(\hat{\theta})  &= \frac{2}{n}\sum_{i=1}^n E(X_i) -1 -\theta \\
+Bias(\hat{\theta})  &= 2E(X) - 1 - \theta \\
+Bias(\hat{\theta})  &= 2 \cdot \frac{\theta+1}{2} - 1 - \theta \\
+Bias(\hat{\theta})  &= 0 \\
+\end{aligned}
+$$
+
+
+## Piece-wise Function
+
+````
+$$ f(x) = \begin{cases} \frac{1}{b-a} \\ 0 \end{cases} $$
+````
+produces the following piece-wise function
+
+$$ f(x) = \begin{cases} \frac{1}{b-a} \\ 0 \end{cases} $$
+
+
+
+
+
+# Pseudo-code of Algorithms
+
+>while not convergence:
+>
+>> compute $\nabla(J)$
+>>
+>> $\theta_0 := \theta_0 - \alpha\nabla(J)_0$
+>>
+>> $\theta_1 := \theta_1 - \alpha\nabla(J)_1$
+>
+>end while
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
