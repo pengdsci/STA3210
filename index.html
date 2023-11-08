@@ -1,0 +1,1247 @@
+
+<html lang="en" style="scroll-padding-top: 76px;"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+        
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <!--meta name="description" content="Project documentation with Markdown.">
+        <meta name="author" content="MkDocs Team">
+        <link rel="canonical" href="https://www.mkdocs.org/">
+        <link rel="shortcut icon" href="https://www.mkdocs.org/img/favicon.ico"-->
+
+        <title>STA 321-Advanced Statistics</title>
+        <link href="./stat/bootstrap.min.css" rel="stylesheet">
+        <link href="./stat/font-awesome.min.css" rel="stylesheet">
+        <link href="./stat/base.css" rel="stylesheet">
+        <link rel="stylesheet" href="./stat/github.min.css">
+        <link href="./stat/extra.css" rel="stylesheet">
+
+        <script async="" src="./stat/analytics.js.download"></script><script src="./stat/jquery-1.10.2.min.js.download" defer=""></script>
+        <script src="./stat/bootstrap.min.js.download" defer=""></script>
+        <script src="./stat/highlight.min.js.download"></script>
+        <script src="./stat/yaml.min.js.download"></script>
+        <script src="./stat/django.min.js.download"></script>
+        <script>hljs.initHighlightingOnLoad();</script>
+
+        <style>
+            div.a {
+              line-height: 90%;
+            }
+
+            .section {
+               background-color: white;
+               border: 0px solid black;
+               margin: 0px;
+               padding: 0px;
+               font-size: 28px;
+               font-weight: 450;
+               text-align: center;
+             }
+            .sub {
+               background-color: white;
+               border: 0px solid black;
+               margin: 0px;
+               padding: 5px;
+               font-size: 20px;
+               font-weight: 490;
+               text-align: left;
+             }
+
+           .graytoc {
+            background-color: LightCyan;
+            color:red;
+            font-weight: 300;
+           }
+
+        </style>
+    </head>
+
+    <body class="homepage" style="">
+
+<!--####################################################-->
+<!-- VVVVVVVVVVVVVVVVV    TOP Panel   VVVVVVVVVVVVVVVVVV-->
+<!--####################################################-->
+    <div class="navbar fixed-top navbar-expand-lg navbar-dark bg-primary">
+        <div class="container">
+             <a class="navbar-brand" href=""><center><b>STA 321 Advanced Statistics</b><br> <sub> Dr. Cheng Peng</sub></center> </a>
+             <!-- Expander button -->
+             <button type="button" class="navbar-toggler" data-toggle="collapse" data-target="#navbar-collapse"><span class="navbar-toggler-icon"></span> </button>
+
+             <!-- Expanded navigation -->
+             <div id="navbar-collapse" class="navbar-collapse collapse">
+
+              <!-- Main navigation -->
+
+             <ul class="nav navbar-nav ml-auto">
+    
+<!--########################################################################-->
+<!--SSSSSSSSSSSSSSSSSSSSSS    Dropdown tag: Syllabus  SSSSSSSSSSSSSSSSSSSS-->
+<!--########################################################################-->
+                 <li class="navitem active"> <a href="ww00/STA321SyllabusFall2023.pdf" target="popup" onclick="window.open('ww00/STA321SyllabusFall2023.pdf','name','width=900,height=500')" class="nav-link">Syllabus </a></li>
+                 
+                  <li class="navitem active"> <a href="https://wcupa.zoom.us/j/6840171840?pwd=ZC90eHk4OUJ5QUlnUzdCUEd2cW5VZz09" target="popup" onclick="window.open('https://wcupa.zoom.us/j/6840171840?pwd=ZC90eHk4OUJ5QUlnUzdCUEd2cW5VZz09','name','width=900,height=500')" class="nav-link">Zoom</a></li>
+
+                  <li class="navitem active"> <a href="ww01/w00-eBooks.html" target="popup" onclick="window.open('ww01/w00-eBooks.html','name','width=900,height=500')" class="nav-link">Ebooks </a></li>
+
+<!--#######################################################################-->
+<!--SSSSSSSSSSSSSSSSSSSSSS    Dropdown tag: Data Sets   SSSSSSSSSSSSSSSSSSSS-->
+<!--#######################################################################-->
+                 <li class="dropdown"><a href="" class="nav-link dropdown-toggle" data-toggle="dropdown"> Data Sets <b class="caret"></b></a>
+                       <ul class="dropdown-menu">
+                           <li class="navitem active"> <a href="https://pengdsci.github.io/datasets/"  target="popup" onclick="window.open('https://pengdsci.github.io/datasets/','name','width=900,height=500')"  class="dropdown-item">Real-world Data Sets </a></li>
+
+                           <li class="navitem active"><a href="ww01/w00-datasets.html"  target="popup" onclick="window.open('ww01/w00-datasets.html','name','width=900,height=500')"  class="dropdown-item">Additional Data Sites</a></li>     
+                         </ul>
+                    </li>
+<!--########################################################################-->
+<!--SSSSSSSSSSSSSSSSSSSSSS    Dropdown tag: Computing   SSSSSSSSSSSSSSSSSSSS-->
+<!--########################################################################-->
+
+               <li class="dropdown"><a href=""  class="nav-link dropdown-toggle" data-toggle="dropdown"> Tools<b class="caret"></b></a>
+                   <ul class="dropdown-menu">
+                       
+                       <center><font size="2" color="purple"><b>Computing & Reporting</b></font></center>
+                       
+                       <li class="navitem active"> <a href="https://bookdown.org/yihui/rmarkdown/" target="popup" onclick="window.open('https://bookdown.org/yihui/rmarkdown/','name','width=900,height=500')" class="dropdown-item">RMarkdown</a></li>               
+                       
+                       <center><font size="2" color="purple"><b>Callaboration & Sharing</b></font></center>
+                       
+                    <li class="navitem active"> <a href="https://github.com/pengdsci" target="popup" onclick="window.open('https://github.com/pengdsci','name','width=900,height=500')" class="dropdown-item">Github</a></li>
+                       
+                    <li class="navitem active"> <a href="https://rpubs.com/" target="popup" onclick="window.open('https://rpubs.com/','name','width=900,height=500')" class="dropdown-item">RPubs</a></li>                       
+                     </ul>
+               </li>
+
+<!--######################################################################-->
+<!--SSSSSSSSSSSSSSSSSSSSSS    Dropdown tag: Office Hours   SSSSSSSSSSSSSSSSSSSS-->
+<!--######################################################################-->
+         <li class="dropdown"><a href="" class="nav-link dropdown-toggle" data-toggle="dropdown"> Office Hours<b class="caret"></b></a>
+            <ul class="dropdown-menu">   
+
+            <li class="navitem active"><center><b>Monday</b> <br> <font size=2 color="purple">3:30PM-5:30PM</font></center></li>
+            
+           <li class="navitem active"><center><b>Tuesday</b> <br><font size=2 color="purple">8:30AM-9:30AM <br> 11:00AM-12:00PM</font></center></li>
+                
+           <li class="navitem active"><center><b>Thursday</b> <br><font size=2 color="purple">8:30AM-9:30AM <br> 11:00AM-12:00PM</font></center></li>
+             </ul>
+              </li>
+                 
+
+<!--######################################################################-->
+<!--SSSSSSSSSSSSSSSSSSSSSS    Dropdown tag: Contact   SSSSSSSSSSSSSSSSSSSS-->
+<!--######################################################################-->
+              <li class="dropdown"><a href="" class="nav-link dropdown-toggle" data-toggle="dropdown"> Contact <b class="caret"></b></a>
+                   <ul class="dropdown-menu">
+                     <li class="navitem active"> <a href="mailto:cpeng@wcupa.edu" target="popup" onclick="window.open('mailto: cpeng@wcupa.edu','name','width=900,height=500')" class="dropdown-item">My Email (link)</a></li>            
+
+                     <li class="navitem active"> <a href="" class="dropdown-item"><b>Office</b></a> <font size="2," color="purple"><center>RM107, 25 Univ. Ave</center></font></li>
+                  </ul>
+              </li>
+    <!--li class="navitem active"> <a href="https://pengdsci.github.io/STA321EB/"  target="popup" onclick="window.open('https://pengdsci.github.io/STA321EB/','name','width=900,height=500')" class="nav-link"> <img src = "eBook.png"  width="35" height="45"> </a></li-->                    
+                 
+<!--SSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSS-->
+               </ul>
+         </div>
+      </div>
+ </div>
+
+
+<!--####################################################-->
+<!-- VVVVVVVVVVVVVVVVV    TOC Panel   VVVVVVVVVVVVVVVVVV-->
+<!--####################################################-->
+<div class="container">
+            <div class="row">
+                <div class="col-md-3"><div class="navbar-light navbar-expand-md bs-sidebar hidden-print affix" role="complementary" style="top: 76px;">
+    <div class="navbar-header">
+        <button type="button" class="navbar-toggler collapsed" data-toggle="collapse" data-target="#toc-collapse" title="Table of Contents">
+         <span class="navbar-toggler-icon"></span>
+        </button>
+    </div>
+
+  <div id="toc-collapse" class="navbar-collapse collapse card bg-secondary">
+          <ul class="nav flex-column">
+            <li class="nav-item" data-level="1"><a href="" class="nav-link active"><center><a href="https://pengdsci.github.io/STA321EB/"  target="popup" onclick="window.open('https://pengdsci.github.io/STA321EB/','name','width=900,height=500')" class="nav-link"> <img src = "eBook.png"  width="75" height="90"> </a>
+            <a href="ww00/Participationrubric.pdf"  target="popup" onclick="window.open('ww00/Participationrubric.pdf','name','width=900,height=500')" class="nav-link"><font color = "red">(Class Participation Rubric)</font> </a>    
+                
+                </center>
+               <ul class="nav flex-column">
+                   <div class="a">
+                   <li class="nav-item" data-level="2"><a href="#week01" class="nav-link">1. Computing tools </a></li>
+                   <li class="nav-item" data-level="2"><a href="#week02" class="nav-link">2. Nonparametric Bootstrap</a></li>  
+                   <li class="nav-item" data-level="2"><a href="#week03" class="nav-link">3. SLR </a></li>
+                   <li class="nav-item" data-level="2"><a href="#week04" class="nav-link">4. MLR</a></li>
+                   <li class="nav-item" data-level="2"><a href="#week05" class="nav-link">5. Bootstrap regressions</a> </li>
+                   <li class="nav-item" data-level="2"><a href="#week06" class="nav-link">6. Simple logistic model</a> </li>   
+                   <li class="nav-item" data-level="2"><a href="#week07" class="nav-link">7. Multiple logistic model</a></li>
+                   <li class="nav-item" data-level="2"><a href="#week08" class="nav-link">8. Logistic predictive model </a></li>
+                   <li class="nav-item" data-level="2"><a href="#week09" class="nav-link">9. Poisson regression </a></li>
+                   <li class="nav-item" data-level="2"><a href="#week10" class="nav-link">10. Quasi-Poisson models </a> </li>	
+                   <li class="nav-item" data-level="2"><a href="#week11" class="nav-link">11. Concepts of time series</a> </li>
+				   <li class="nav-item" data-level="2"><a href="#week12" class="nav-link">12. Moving average and LOESS</a> </li>
+                   <li class="nav-item" data-level="2"><a href="#week13" class="nav-link">13. Exponential smoothing </a> </li>
+                   <li class="nav-item" data-level="2"><a href="#week14" class="nav-link">14. Wrapping up project</a> </li>             
+                  <li class="nav-item" data-level="2"><a href="#week15" class="nav-link"> 15. Project presentation</a> </li>
+                   </div>
+                </ul>
+             </li>
+           </ul>
+    </div>
+</div></div>
+
+<!-- VVVVVVVVVVVVVVVVV    Main Body   VVVVVVVVVVVVVVVVVV-->
+
+<div class="col-md-9" role="main">
+
+    
+<!--VVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVV   
+VVVVVVVVVVVVVVVVV              Week #01            VVVVVVVVVVVVVVVVV
+VVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVV-->
+<h2 id="week01" class="section"><center>Week 01: Tools for Computing and Reporting</center></h2>
+
+<hr><left>
+<b>LEARNING OBJECTIVES:</b> After completing this week's .<br>
+    <ul>
+     1. set up computing tools R, RStudio, and MikTex.<br>
+     2. use some R commands and functions.<br>
+     3. create an R Markdown document.<br>  
+     4. install and load R packages.
+     </ul>
+<b> TOPICS</b>: Topics and materials for this week. <br>
+      <ul>
+        <li> Introduction: class structure, topics, assessments, and logistics.
+        <li>Install  <a href="https://www.r-project.org/" target="popup" 
+                onclick="window.open('https://www.r-project.org/','name','width=900,height=500')">
+                <font color = "navy">R [free download]</a> </font>, 
+               <a href="https://rstudio.com/products/rstudio/download/#download" target="popup"     onclick="window.open('https://rstudio.com/products/rstudio/download/#download','name','width=900,height=500')">
+                <font color = "navy">RStudio[free download]</a> </font>
+            , and 
+               <a href="https://miktex.org/download" target="popup" onclick="window.open('https://miktex.org/download','name','width=900,height=500')">
+                <font color = "navy">MiTex[download]</a> </font>
+        <li> Getting started with R: basic operations, vectors, data frames (R data sets).
+        <li> Install and load R libraries
+        <li> <a href="https://rstudio-education.github.io/hopr/starting.html" target="popup"   
+                onclick="window.open('https://rstudio-education.github.io/hopr/starting.html','name','width=900,height=500')">
+                <font color = "navy">Instruction for Installing R and RStudio and load packages (Appendices A, B, and C.)</font></a> </li>
+        <li> <a href="https://rmarkdown.rstudio.com/authoring_quick_tour.html" target="popup" onclick="window.open('https://rmarkdown.rstudio.com/authoring_quick_tour.html',
+            'name','width=900,height=500')">
+                <font color = "navy">Quick Tour of R Markdown</a> </font></li>
+        </ul>
+    
+<b> CLASS NOTES</b>:
+    <ul>
+    <li> Getting started with R, RStudio, RMarkdown, RPubs, and GitHub. <a href="ww01/w01-RRStudioGitHub.html" target="popup" 
+                   onclick="window.open('ww01/w01-RRStudioGitHub.html','name','width=900,height=500')">
+                   <font color = "navy">[HTML] </font></a>
+                    <a href="ww01/w01-RRStudioGitHub.Rmd" target="popup" 
+                   onclick="window.open('ww01/w01-RRStudioGitHub.Rmd','name','width=900,height=500')">
+                   <font color = "navy">[RMD] </font></a>
+                    <a href="ww01/w01-RRStudioGitHub.pdf" target="popup" 
+                   onclick="window.open('ww01/w01-RRStudioGitHub.pdf','name','width=900,height=500')">
+                   <font color = "navy">[PDF] </font></a>
+        </li>
+      <li> RMarkdown template of statistical report . <a href="ww01/w01-RMarkdownTemplate4StatsReports.html" target="popup" 
+                   onclick="window.open('ww01/w01-RMarkdownTemplate4StatsReports.html','name','width=900,height=500')">
+                   <font color = "navy">[HTML] </font></a>
+                   <a href="ww01/w01-RMarkdownTemplate4StatsReports.Rmd" target="popup" 
+                   onclick="window.open('ww01/w01-RMarkdownTemplate4StatsReports.Rmd','name','width=900,height=500')">
+                   <font color = "navy">[RMD] </font></a>
+                    <a href="ww01/w01-RMarkdownTemplate4StatsReports.Rmd" target="popup" 
+                   onclick="window.open('ww01/w01-RMarkdownTemplate4StatsReports.Rmd','name','width=900,height=500')">
+                   <font color = "navy">[PDF] </font></a>
+        </li>
+      <li> Setting-up GitHib <a href="ww01/w01-R-RStudio-Github.html" target="popup" 
+                   onclick="window.open('ww01/w01-R-RStudio-Github.html','name','width=900,height=500')">
+                   <font color = "navy">[HTML] </font></a>
+                   <a href="ww01/w01-R-RStudio-Github.Rmd" target="popup" 
+                   onclick="window.open('ww01/w01-R-RStudio-Github.Rmd','name','width=900,height=500')">
+                   <font color = "navy">[RMD] </font></a>
+                    <a href="https://github.com/pengdsci/sta321/blob/main/ww01/w01-R-RStudio-Github.Rmd" target="popup" 
+                   onclick="window.open('https://github.com/pengdsci/sta321/blob/main/ww01/w01-R-RStudio-Github.Rmd','name','width=900,height=500')">
+                   <font color = "navy">[TXT] </font></a>
+      <li> Writing Mathematical Equations in RMarkdown <a href="ww00/w00-STA321MathematicFormulasRMarkdown.html" target="popup" 
+                   onclick="window.open('ww00/w00-STA321MathematicFormulasRMarkdown.html','name','width=900,height=500')">
+                   <font color = "navy">[HTML] </font></a>
+                   <a href="https://github.com/pengdsci/sta321/blob/main/ww00/w00-STA321MathematicFormulasRMarkdown.Rmd" target="popup" 
+                   onclick="window.open('https://github.com/pengdsci/sta321/blob/main/ww00/w00-STA321MathematicFormulasRMarkdown.Rmd','name','width=900,height=500')">
+                   <font color = "navy">[RMD] </font></a>
+                    <a href="ww00/w00-STA321MathematicFormulasRMarkdown.pdf" target="popup" 
+                   onclick="window.open('ww00/w00-STA321MathematicFormulasRMarkdown.pdf','name','width=900,height=500')">
+                   <font color = "navy">[PDF] </font></a>
+        </li>  
+        </li>        
+    </ul>
+    
+<b> ASSIGNMENTS</b>:
+      <ul>
+         <li> Reading Assignments</li>
+            <ul>
+             <li> Practice R code in
+                  <a href="https://search.ebscohost.com/login.aspx?direct=true&AuthType=shib&db=e000xna&AN=760980&site=ehost-live&scope=site&custid=s3916018&ebv=EK&ppid=Page-__-1" target="popup"   
+                   onclick="window.open('https://search.ebscohost.com/login.aspx?direct=true&AuthType=shib&db=e000xna&AN=760980&site=ehost-live&scope=site&custid=s3916018&ebv=EK&ppid=Page-__-1','name','width=900,height=500')">
+                    <font color = "navy">Chapters 1-2.</font></a></li>
+
+             <li> <a href="https://rmarkdown.rstudio.com/articles_intro.html" target="popup" 
+                   onclick="window.open('https://rmarkdown.rstudio.com/articles_intro.html','name','width=900,height=500')">
+                   <font color = "navy"> Introduction to R Markdown </font></a></li>
+
+             <li> <a href="https://cloud.r-project.org/doc/contrib/Torfs+Brauer-Short-R-Intro.pdf" target="popup"  
+                   onclick="window.open('https://cloud.r-project.org/doc/contrib/Torfs+Brauer-Short-R-Intro.pdf','name','width=900,height=500')">
+                    <font color = "navy">A (very) short introduction to R</font></a></li>
+            <li><font color = "#C5031D"> Create an R Markdown Document and convert to HTML, Word and PDF, respectively</font>
+            </ul>
+
+              
+          <li><font color = "red"><b> No written assignment due for this week! </b></font></li>
+              
+         </ul>
+
+
+</left><hr>
+<!--VVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVV   
+VVVVVVVVVVVVVVVVV              Week #02            VVVVVVVVVVVVVVVVV
+VVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVV-->
+<h3 id="week02"  class="section">Week 02: Nonparametric Bootstrap Method</h3>
+
+<hr><left>
+    
+    
+<b>LEARNING OBJECTIVES:</b> <font color = "#C5031D"> After finishing this module, you will be able to </font><br>
+    <ul>
+     1. justify when to use sampling distribution and bootstrap sampling distribution.<br>
+     2. construct bootstrap confidence interval of population parameters such as means, standard deviation, etc.<br>
+     3. write basic R code to perform bootstrap analysis and make basic plots. 
+     </ul>    
+    
+<b>TOPICS:</b> The following topics will be covered this week.<br>
+    <ul>
+       <li> Review of simple random sampling (SRS)
+       <li> Sampling from empirical distribution: Bootstrap sampling
+       <li> Construction of Bootstrap confidence intervals for the population mean
+       <li> <b>R Applications</b> 
+          <ul>
+          <li><font color="red"><b>Class note: </b></font> <a href="ww02/w02-STA321bootstrap.html" target="popup" 
+                onclick="window.open('ww02/w02-STA321bootstrap.html','name','width=900,height=500')">
+                <font color = "navy">[HTML]</font></a> , 
+              <a href="ww02/w02-STA321bootstrap.pdf" target="popup" 
+                onclick="window.open('ww02/w02-STA321bootstrap.pdf','name','width=900,height=500')">
+                <font color = "navy">[PDF]</font></a> , 
+               <a href="ww02/w02-STA321bootstrap.Rmd" target="popup" 
+                onclick="window.open('ww02/w02-STA321bootstrap.Rmd','name','width=900,height=500')">
+                <font color = "navy">[RMD]</font></a> 
+
+        <li> <b>Data Sets Used in Class Note </b>:<a href="https://raw.githubusercontent.com/pengdsci/sta321/main/ww02/w02-wcuheights.txt" target="popup" 
+                onclick="window.open('https://raw.githubusercontent.com/pengdsci/sta321/main/ww02/w02-wcuheights.txt','name','width=900,height=500')">
+                <font color = "navy"> (1). WCU Heights [txt, Simulated Data]</font></a> 
+                <a href="https://raw.githubusercontent.com/pengdsci/sta321/main/ww02/w02-iris.txt" target="popup" 
+                onclick="window.open('https://raw.githubusercontent.com/pengdsci/sta321/main/ww02/w02-iris.txt','name','width=900,height=500')">
+                <font color = "navy"> (2). Iris Data [txt]</font></a> </li>
+        <li><font color="red"><b>Lab note: Basics of R Graphics</b></font> <a href="ww02/w02-STA321StatsGraphics.html" target="popup" 
+                onclick="window.open('ww02/w02-STA321StatsGraphics.html','name','width=900,height=500')">
+                <font color = "navy">[HTML]</font></a> , 
+              <a href="ww02/w02-STA321StatsGraphics.pdf" target="popup" 
+                onclick="window.open('ww02/w02-STA321StatsGraphics.pdf','name','width=900,height=500')">
+                <font color = "navy">[PDF]</font></a> , 
+               <a href="ww02/w02-STA321StatsGraphics.Rmd" target="popup" 
+                onclick="window.open('ww02/w02-STA321StatsGraphics.Rmd','name','width=900,height=500')">
+                <font color = "navy">[RMD]</font></a> 
+        </ul>
+       </ul>
+
+    
+<b>ASSIGNMENTS:</b> 
+      <ul>
+         <li> Reading Assignments</li>
+            <ul>
+             <li> <a href="https://ebookcentral.proquest.com/lib/wcupa/reader.action?docID=261114&ppg=7" target="popup"   
+                   onclick="window.open('https://ebookcentral.proquest.com/lib/wcupa/reader.action?docID=261114&ppg=7','name','width=900,height=500')">
+                    <font color = "navy">Chapter 4 of Roff's eBook </font></a> (pages 66-70 and 74-76.)</li>
+             <li> <a href="ww02/w02-STA321bootstrap.html" target="popup"  
+                   onclick="window.open('ww02/w02-STA321bootstrap.html','name','width=900,height=500')">
+                    <font color = "navy">Class Note: Understand the concept and practice examples</font></a></li>
+            </ul>
+          <li> Written Assignments
+            <ul>
+             <li> <a href="ww02/w02-STA321Assign.html" target="popup"  
+                   onclick="window.open('ww02/w02-STA321Assign.html','name','width=900,height=500')">
+                    <font color = "navy">Week #2 Assignment: Application of Bootstrap Method [Link].</font></a></li>
+             <li> <font color = "red"><b>Wee #2 Assignment Due: Sunday,  11:30 PM</b> </font> <br></li>
+              </ul>
+          </li>
+
+         </ul>
+</left><hr>
+
+<!--VVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVV   
+VVVVVVVVVVVVVVVVV              Week #03            VVVVVVVVVVVVVVVVV
+VVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVV -->
+<h3 id="week03"  class="section">Week 03: Simple Linear Regression Models</h3>
+
+<hr><left>
+    
+<b>LEARNING OBJECTIVES:</b> <font color = "#C5031D"> After finishing this module, you will be able to </font><br>
+    <ul>
+     1. perform residual analysis of the SLR.<br>
+     2. Interpret the regression coefficient and goodness of fit measures.<br>
+     3. write R basic R code to perform bootstrap regression analysis. 
+     </ul>    
+    
+    
+<b>TOPICS:</b> The following topics will be covered this week.<br>
+    <ul>
+       <li> Linear regression model &ndash; structure and assumptions.
+       <li> Diagnostics, R square, and interpretations
+       <li> Bootstrap Regression
+       <li> <b>Course Materials</b> 
+          <ul>
+              <li><font color="red"><b><font color = "red">Project Report Grading Rubrics </font></b></font> <a href="ww00/ProjectReportGradingRubrics.html" target="popup" 
+                onclick="window.open('ww00/ProjectReportGradingRubrics.html','name','width=900,height=500')">
+                <font color = "navy">[HTML]</font></a> 
+                <a href="ww00/ProjectReportGradingRubrics.pdf" target="popup" 
+                onclick="window.open('ww00/ProjectReportGradingRubrics.pdf','name','width=900,height=500')">
+                   <font color = "navy">[PDF]</font></a>    
+          <li><font color="red"><b>Class Note: </b></font> <a href="ww03/w03-STA321Bootstrap-SLR.html" target="popup" 
+                onclick="window.open('ww03/w03-STA321Bootstrap-SLR.html','name','width=900,height=500')">
+                <font color = "navy">[HTML]</font></a> 
+                <a href="ww03/w03-STA321Bootstrap-SLR.pdf" target="popup" 
+                onclick="window.open('ww03/w03-STA321Bootstrap-SLR.pdf','name','width=900,height=500')">
+                   <font color = "navy">[PDF]</font></a>
+               <a href="ww03/w03-STA321Bootstrap-SLR.Rmd" target="popup" 
+                onclick="window.open('ww03/w03-STA321Bootstrap-SLR.Rmd','name','width=900,height=500')">
+                   <font color = "navy">[RMD]</font></a> 
+          <li><font color="red"><b>Lab Note: </b></font> <a href="ww03/w03-STA321SamplingResidualsLab.html" target="popup" 
+                onclick="window.open('ww03/w03-STA321SamplingResidualsLab.html','name','width=900,height=500')">
+                <font color = "navy">[HTML]</font></a> 
+                <a href="ww03/w03-STA321SamplingResidualsLab.pdf" target="popup" 
+                onclick="window.open('ww03/w03-STA321SamplingResidualsLab.pdf','name','width=900,height=500')">
+                   <font color = "navy">[PDF]</font></a>
+               <a href="ww03/w03-STA321SamplingResidualsLab.Rmd" target="popup" 
+                onclick="window.open('ww03/w03-STA321SamplingResidualsLab.Rmd','name','width=900,height=500')">
+                   <font color = "navy">[RMD]</font></a> 
+
+        <li>  Data Sets Used in Class Note:<a href=" https://stat321.s3.amazonaws.com/w03-Realestate.csv" target="popup" 
+                onclick="window.open(' https://stat321.s3.amazonaws.com/w03-Realestate.csv','name','width=900,height=500')">
+            <font color = "navy"> [Real Estate Data]</font></a></li>
+            </ul>
+
+       </ul>
+
+    
+    
+<b>ASSIGNMENTS:</b>  
+      <ul>
+         <li> Reading Assignments</li>
+            <ul>
+             <li> <a href="https://ebookcentral.proquest.com/lib/wcupa/reader.action?docID=5259460&ppg=1" target="popup"   
+                   onclick="window.open('https://ebookcentral.proquest.com/lib/wcupa/reader.action?docID=5259460&ppg=1','name','width=900,height=500')">
+                    <font color = "navy">Chapter 2 of Ciaburro's eBook </font></a></li>
+             <li> <a href="https://ebookcentral.proquest.com/lib/wcupa/reader.action?docID=4560113&ppg=46" target="popup"  
+                   onclick="window.open('https://ebookcentral.proquest.com/lib/wcupa/reader.action?docID=4560113&ppg=46','name','width=900,height=500')">
+                    <font color = "navy">Chapter 4 of Sahay's Book (using Excel and MINITAB but with good interpretations)</font></a></li>
+            </ul>
+        <li> <font color = "red"><b>Week #3 Assignment </b></font>:<a href="ww03/w03-321Assignment.html" target="popup" 
+                onclick="window.open('ww03/w03-321Assignment.html','name','width=900,height=500')">
+                <font color = "navy">[HTML]</font> </a>  
+               <a href="ww03/w03-321Assignment.Rmd" target="popup" 
+                onclick="window.open('ww03/w03-321Assignment.Rmd','name','width=900,height=500')">
+                <font color = "navy">[RMD]</font></a>  </li> 
+                  <ul>
+                     <li><font color = "red"> <b>Due</b>: 11:30 PM, Sunday. </font></li>
+                    <li> <a href="https://d2l.wcupa.edu/d2l/login" target="popup"  
+                   onclick="window.open('https://d2l.wcupa.edu/d2l/login','name','width=900,height=500')">
+                    <font color = "navy"> <b>D2L Drop Box(link)</b></font></a></li>
+
+                 </ul>
+         </ul> 
+</left><hr>
+
+                
+                
+<!--VVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVV   
+VVVVVVVVVVVVVVVVV              Week #04            VVVVVVVVVVVVVVVVV
+VVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVV  -->
+<h3 id="week04"  class="section">Week 04: Multiple Linear Regression Models </h3>
+
+<hr><left>
+
+    
+<b>LEARNING OBJECTIVES:</b> <font color = "#C5031D"> After finishing this module, you will be able to </font><br>
+    <ul>
+     1. use factor() to handle categorical variable.<br>
+     2. perform variable selection: step-wise method <br>
+     3. perform residual analysis of the SLR.<br>
+     4. write a mini report to summarize the output of MLR. 
+     </ul>      
+
+<b>TOPICS:</b> The following topics will be covered this week.<br>
+      <ul>
+     <li> Dummy variables </li>
+     <li> Assumptions, goodness-of-fit, and diagnostics
+     <li> Variable selection methods
+     <li> Summarizing and interpretations
+     <li> <b>Notes and R Applications:</b>
+          <ul>
+          <li><font color="red"><b>Class note: </b></font> <a href="ww04/w04-MLR.html" target="popup" 
+                onclick="window.open('ww04/w04-MLR.html','name','width=900,height=500')">
+                <font color = "navy">[HTML]</font></a>   
+               <a href="ww04/w04-MLR.Rmd" target="popup" 
+                onclick="window.open('ww04/w04-MLR.Rmd','name','width=900,height=500')">
+                <font color = "navy">[RMD]</font></a>  
+               <a href="ww04/w04-MLR.pdf" target="popup" 
+                onclick="window.open('ww04/w04-MLR.pdf','name','width=900,height=500')">
+                <font color = "navy">[PDF]</font></a> 
+
+        <li>  Data Sets Used in Class Note:<a href="https://raw.githubusercontent.com/pengdsci/sta321/main/ww03/w03-Realestate.csv" target="popup" 
+                onclick="window.open('https://raw.githubusercontent.com/pengdsci/sta321/main/ww03/w03-Realestate.csv','name','width=900,height=500')">
+                <font color = "navy"> [Real Estate Data] </font></a></li>
+              
+          <li><font color="red"><b>Lab Note #2: </b></font> <a href="ww04/04-STA321-RLab-DataManage.html" target="popup" 
+                onclick="window.open('ww04/04-STA321-RLab-DataManage.html','name','width=900,height=500')">
+                <font color = "navy">[HTML]</font></a>   
+               <a href="ww04/04-STA321-RLab-DataManage.Rmd" target="popup" 
+                onclick="window.open('ww04/04-STA321-RLab-DataManage.Rmd','name','width=900,height=500')">
+                <font color = "navy">[RMD]</font></a>  
+               <a href="ww04/04-STA321-RLab-DataManage.pdf" target="popup" 
+                onclick="window.open('ww04/04-STA321-RLab-DataManage.pdf','name','width=900,height=500')">
+                <font color = "navy">[PDF]</font></a>               
+              
+              
+              
+            </ul>
+       </ul>
+
+
+<b>ASSIGNMENTS:</b> <br>
+      <ul>
+         <li> Reading Assignments</li>
+            <ul>
+             <li> <a href="https://ebookcentral.proquest.com/lib/wcupa/reader.action?docID=5259460&ppg=1" target="popup"   
+                   onclick="window.open('https://ebookcentral.proquest.com/lib/wcupa/reader.action?docID=5259460&ppg=1','name','width=900,height=500')">
+                    <font color = "navy">Chapter 3 of Ciaburro's eBook </font></a></li>
+             <li> <a href="https://ebookcentral.proquest.com/lib/wcupa/reader.action?docID=4560113&ppg=46" target="popup"  
+                   onclick="window.open('https://ebookcentral.proquest.com/lib/wcupa/reader.action?docID=4560113&ppg=46','name','width=900,height=500')">
+                    <font color = "navy">Chapter 5 of Sahay's Book: multiple linear regression)</font></a></li>
+             <li> <a href="https://rcompanion.org/rcompanion/e_05.html" target="popup"  
+                   onclick="window.open('https://rcompanion.org/rcompanion/e_05.html','name','width=900,height=500')">
+                    <font color = "navy">Blog post: with R code</font></a></li>
+            </ul>
+          
+        <li> <font color = "red"><b>Week #4 Assignment </b></font>:<a href="ww04/w04-321Assignment.html" target="popup" 
+                onclick="window.open('ww04/w04-321Assignment.html','name','width=900,height=500')">
+                <font color = "navy">[HTML]</font></a>   
+               <a href="ww04/w04-321Assignment.Rmd" target="popup" 
+                onclick="window.open('ww04/w04-321Assignment.Rmd','name','width=900,height=500')">
+                <font color = "navy">[RMD]</font></a>  
+               <a href="ww04/w04-321Assignment.pdf" target="popup" 
+                onclick="window.open('ww04/w04-321Assignment.pdf','name','width=900,height=500')">
+                <font color = "navy">[PDF]</font></a> </li> 
+                 <ul>
+                     <li><font color = "red"> <b>Due</b>: 11:30 PM, Sunday. </font></li>
+                     <li> <a href="https://d2l.wcupa.edu/d2l/login" target="popup"  
+                   onclick="window.open('https://d2l.wcupa.edu/d2l/login','name','width=900,height=500')">
+                    <font color = "navy"> <b>D2L Drop Box (link)</b></font></a></li>
+    
+                    </ul>
+         </ul>
+ <br>   
+ </left><hr>       
+        
+<!--VVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVV   
+VVVVVVVVVVVVVVVVV              Week #05            VVVVVVVVVVVVVVVVV
+VVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVV  -->
+<h3 id="week05"  class="section">Week 05: Bootstrapping Regression Models </h3>
+
+<hr><left>
+
+<b>LEARNING OBJECTIVES:</b> <font color = "#C5031D"> After finishing this module, you will be able to </font><br>
+    <ul>
+     1. take bootstrap records<br>
+     2. use bootstrap residuals to define bootstrap responses<br>
+     3. justify the validity of inferences based on bootstrap and the normal regression modeling<br>
+     4. write a formal report. 
+     </ul> 
+    
+
+<b>TOPICS:</b> The following topics will be covered this week.<br>
+<ul>
+     <li> Bootstrapping records
+     <li> Bootstrapping residuals
+     <li> Bootstrap confidence intervals of regression coefficients
+     <li> <b>R Applications: Bootstrap MLR with R</b>
+          <ul>
+          <li><font color="red"><b>Class note: Bootstrap MLR </b></font> <a href="ww05/w05-Boot-MLR.html" target="popup" 
+                onclick="window.open('ww05/w05-Boot-MLR.html','name','width=900,height=500')">
+                <font color = "navy">[HTML]</font></a>   
+               <a href="ww05/w05-Boot-MLR.Rmd" target="popup" 
+                onclick="window.open('ww05/w05-Boot-MLR.Rmd','name','width=900,height=500')">
+                <font color = "navy">[RMD]</font></a>  
+               <a href="ww05/w05-Boot-MLR.pdf" target="popup" 
+                onclick="window.open('ww05/w05-Boot-MLR.pdf','name','width=900,height=500')">
+                <font color = "navy">[PDF]</font></a> 
+
+        <li>  Data Sets Used in Class Note:<a href="https://raw.githubusercontent.com/pengdsci/sta321/main/ww03/w03-Realestate.csv" target="popup" 
+                onclick="window.open('https://raw.githubusercontent.com/pengdsci/sta321/main/ww03/w03-Realestate.csv','name','width=900,height=500')">
+                <font color = "navy"> [Real Estate Data]</font></a> </li>
+              
+         <li><font color="red"><b>Lab note: Working with Dataframes </b></font> <a href="ww05/w05-STA321-RLab-DataManage.html" target="popup" 
+                onclick="window.open('ww05/w05-STA321-RLab-DataManage.html','name','width=900,height=500')">
+                <font color = "navy">[HTML]</font></a>   
+               <a href="ww05/w05-STA321-RLab-DataManage.Rmd" target="popup" 
+                onclick="window.open('ww05/w05-STA321-RLab-DataManage.Rmd','name','width=900,height=500')">
+                <font color = "navy">[RMD]</font></a>  
+               <a href="ww05/w05-STA321-RLab-DataManage.pdf" target="popup" 
+                onclick="window.open('ww05/w05-STA321-RLab-DataManage.pdf','name','width=900,height=500')">
+                <font color = "navy">[PDF]</font></a> 
+
+            </ul>
+    </ul>
+
+
+<b>ASSIGNMENTS:</b> 
+     <ul>
+         <li> Reading Assignments</li>
+            <ul>
+             <li> <a href="https://ebookcentral.proquest.com/lib/wcupa/reader.action?docID=5259460&ppg=1" target="popup"   
+                   onclick="window.open('https://ebookcentral.proquest.com/lib/wcupa/reader.action?docID=5259460&ppg=1','name','width=900,height=500')">
+                    <font color = "navy">Chapter 3 of Ciaburro's eBook </font></a></li>
+             <li> <a href="https://ebookcentral.proquest.com/lib/wcupa/reader.action?docID=4560113&ppg=46" target="popup"  
+                   onclick="window.open('https://ebookcentral.proquest.com/lib/wcupa/reader.action?docID=4560113&ppg=46','name','width=900,height=500')">
+                    <font color = "navy">Chapter 5 of Sahay's Book: multiple linear regression)</font></a></li>
+             <li> <a href="http://www.utstat.toronto.edu/~brunner/oldclass/appliedf12/lectures/2101f12BootstrapR.pdf" target="popup"  
+                   onclick="window.open('http://www.utstat.toronto.edu/~brunner/oldclass/appliedf12/lectures/2101f12BootstrapR.pdf','name','width=900,height=500')">
+                    <font color = "navy">Bootstrap Rehression: with R code</font></a></li>
+            </ul>
+
+          <li> <font color = "red"><b>Report of Project #1 </b></font>:<a href="ww05/w05-321Assignment.html" target="popup" 
+                onclick="window.open('ww05/w05-321Assignment.html','name','width=900,height=500')">
+                <font color = "navy">[HTML]</font></a>   
+               <a href="ww05/w05-321Assignment.Rmd" target="popup" 
+                onclick="window.open('ww05/w05-321Assignment.Rmd','name','width=900,height=500')">
+                <font color = "navy">[RMD]</font></a>  
+               <a href="ww05/w05-321Assignment.pdf" target="popup" 
+                onclick="window.open('ww05/w05-321Assignment.pdf','name','width=900,height=500')">
+                <font color = "navy">[PDF]</font></a> </li>  
+               <ul>
+                   <li> <font color = "red"> <b>Due</b>: 11:30 PM, Sunday. </font></li>
+                   <li> <a href="https://d2l.wcupa.edu/d2l/login" target="popup"  
+                   onclick="window.open('https://d2l.wcupa.edu/d2l/login','name','width=900,height=500')">
+                    <font color = "navy"> <b>D2L Drop Box(link)</b></font></a></li>              
+              </ul>
+     </ul>
+ 
+         
+<hr>
+
+        
+        
+<!--VVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVV   
+VVVVVVVVVVVVVVVVV              Week #06            VVVVVVVVVVVVVVVVV
+VVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVV  -->
+<h3 id="week06"  class="section">Week 06: Simple Logistic Regression Models </h3>
+
+<hr><left>
+
+
+<b>LEARNING OBJECTIVES:</b> <font color = "#C5031D"> After finishing this module, you will be able to </font><br>
+    <ul>
+     1. correct identify the response variable for a logistic model<br>
+     2. fit a logistic model with R<br>
+     3. interpret of regression coefficients<br>
+     4. make prediction with the logistic regression model. 
+     </ul> 
+    
+
+    
+<b>TOPICS:</b> The following topics will be covered this week.<br>
+    <ul> 
+     <li> Practical question and model formulation </li>
+     <li> Model structure - log odds regression </li>
+     <li> Interpretation of the regression coefficients </li>
+     <li> <b>R Applications: Case study &ndash; logistic regression with R</b> </li>
+          <ul>
+          <li><font color="red"><b>Class note: Simple Logistic Regression </b></font> <a href="ww06/w06-321SimpleLogisticRegression.html" target="popup" 
+                onclick="window.open('ww06/w06-321SimpleLogisticRegression.html','name','width=900,height=500')">
+                <font color = "navy">[HTML]</font></a>   
+               <a href="ww06/w06-321SimpleLogisticRegression.Rmd" target="popup" 
+                onclick="window.open('ww06/w06-321SimpleLogisticRegression.Rmd','name','width=900,height=500')">
+                <font color = "navy">[RMD]</font></a>  
+               <a href="ww06/w06-321SimpleLogisticRegression.pdf" target="popup" 
+                onclick="window.open('ww06/w06-321SimpleLogisticRegression.pdf','name','width=900,height=500')">
+                <font color = "navy">[PDF]</font></a> 
+
+        <li>  Data Sets Used in Class Note:<a href="https://raw.githubusercontent.com/pengdsci/sta321/main/ww06/PimaIndiansDiabetes2.csv" target="popup"  onclick="window.open('https://raw.githubusercontent.com/pengdsci/sta321/main/ww06/PimaIndiansDiabetes2.csv','name','width=900,height=500')">
+                <font color = "navy"> [Pima Indians Diabetes2]</font></a> </li>
+              
+         <!--li><font color="red"><b>Lab note: Working with Dataframes </b></font> <a href="ww05/w05-STA321-RLab-DataManage.html" target="popup" 
+                onclick="window.open('ww05/w05-STA321-RLab-DataManage.html','name','width=900,height=500')">
+                <font color = "navy">[HTML]</font></a>   
+               <a href="ww05/w05-STA321-RLab-DataManage.Rmd" target="popup" 
+                onclick="window.open('ww05/w05-STA321-RLab-DataManage.Rmd','name','width=900,height=500')">
+                <font color = "navy">[RMD]</font></a>  
+               <a href="ww05/w05-STA321-RLab-DataManage.pdf" target="popup" 
+                onclick="window.open('ww05/w05-STA321-RLab-DataManage.pdf','name','width=900,height=500')">
+                <font color = "navy">[PDF]</font></a--> 
+            </ul>
+
+        </ul>
+
+<b>ASSIGNMENTS:</b>
+       <ul>
+           <li> Read sections 2.5 and 2.6 of <font color = "red"> the required textbook.</font> 
+               
+            <li> <font color = "red"><b>Week #6 Assignment </b></font>: <a href="ww06/w06-321Assignement.html" target="popup" 
+                onclick="window.open('ww06/w06-321Assignement.html','name','width=900,height=500')">
+                <font color = "navy">[HTML]</font></a>   
+               <a href="ww06/w06-321Assignement.Rmd" target="popup" 
+                onclick="window.open('ww06/w06-321Assignement.Rmd','name','width=900,height=500')">
+                <font color = "navy">[RMD]</font></a>  
+               <a href="ww06/w06-321Assignement.pdf" target="popup" 
+                onclick="window.open('ww06/w06-321Assignement.pdf','name','width=900,height=500')">
+                <font color = "navy">[PDF]</font></a> </li>
+           
+               <ul>
+               <li><font color = "red"><b> Due on Sunday </b>: 11:30 PM </font></li>
+               <li><a href="https://d2l.wcupa.edu/d2l/login" target="popup" onclick="window.open('https://d2l.wcupa.edu/d2l/login','name','width=900,height=500')"> <b>D2L Drop Box (login)</b></a></li>
+
+             </ul>
+       </ul>
+
+<hr>
+
+        
+<!--VVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVV   
+VVVVVVVVVVVVVVVVV              Week #07            VVVVVVVVVVVVVVVVV
+VVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVV  -->
+
+<h3 id="week07"  class="section">Week 07: Multiple Logistic Regression Models</h3>
+
+<hr><left>
+        
+
+<b>LEARNING OBJECTIVES:</b> <font color = "#C5031D"> After finishing this module, you will be able to </font><br>
+    <ul>
+     1. inspect and transform predictor variables <br>
+     2. perform automatical vaiable selection in loditic regression with R<br>
+     3. interpret of odds ratios<br>
+     4. interpret prediction and validation performance.  
+     </ul>
+        
+        
+<b>TOPICS:</b> The following topics will be covered this week.<br>
+    <ul>
+      <li> Models with only categorical predictor variables&ndash;Dummy variable </li>
+      <li> Variable selection methods and criteria </li>
+      <li> Interpretation of coefficients </li>
+      <li> <b>R Applications: Case study &ndash; Multiple logistic regression with R</b> </li>
+      <li> Notes</li>
+          <ul>
+          <li><font color="red"><b>Class note </b>: </font> <a href="ww07/w07-321MultipleLogisticRegression.html" target="popup" 
+                onclick="window.open('ww07/w07-321MultipleLogisticRegression.html','name','width=900,height=500')">
+                <font color = "navy">[HTML]</font></a>   
+               <a href="ww07/w07-321MultipleLogisticRegression.Rmd" target="popup" 
+                onclick="window.open('ww07/w07-321MultipleLogisticRegression.Rmd','name','width=900,height=500')">
+                <font color = "navy">[RMD] </font></a>  
+               <a href="ww07/w07-321MultipleLogisticRegression.pdf" target="popup" 
+                onclick="window.open('ww07/w07-321MultipleLogisticRegression.pdf','name','width=900,height=500')">
+                <font color = "navy">[PDF]</font></a> 
+
+           </ul>
+        </ul>
+
+
+<b>ASSIGNMENTS:</b> 
+            <ul>
+             <li> <a href="https://ebookcentral.proquest.com/lib/wcupa/reader.action?docID=5259460&ppg=1" target="popup"   
+                   onclick="window.open('https://ebookcentral.proquest.com/lib/wcupa/reader.action?docID=5259460&ppg=1','name','width=900,height=500')">
+                    <font color = "navy">Chapter 4 of Ciaburro's eBook: Pages 134 - 154. Very nice interpretation for the odds ratios </font></a></li>
+
+             <li> <font color = "red"><b>Week #7 Assignment </b></font>
+                  <a href="ww07/w07-assignment.html" target="popup" 
+                   onclick="window.open('ww07/w07-assignment.html','name','width=900,height=500')">
+                   <font color = "navy">[HTML] </font> </a>  
+                   <a href="ww07/w07-assignment.Rmd" target="popup" 
+                     onclick="window.open('ww07/w07-assignment.Rmd','name','width=900,height=500')">
+                    <font color = "navy">[RMD] </font> </a> 
+                   <a href="ww07/w07-assignment.pdf" target="popup" 
+                      onclick="window.open('ww07/w07-assignment.pdf','name','width=900,height=500')">
+                   <font color = "navy">[PDF]</font></a> 
+                      <ul>
+                      <li><font color = "red"> <b>Due</b>: 11:30 PM, Sunday. </font></li>          
+                      <li> <a href="https://d2l.wcupa.edu/d2l/login" target="popup"  
+                           onclick="window.open('https://d2l.wcupa.edu/d2l/login','name','width=900,height=500')">
+                          <font color = "navy"> <b>D2L Drop Box (link)</b></font></a></li>
+                    </ul>         
+         </ul>
+</left><hr>
+
+<!-- MMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMM -->
+<h3 id="week08"  class="section">Week 08: Logistic Regression: Predictive Modeling </h3>
+
+<hr><left>
+
+<b>LEARNING OBJECTIVES:</b> <font color = "#C5031D"> After finishing this module, you will be able to </font><br>
+    <ul>
+     1. calculate the sensitivity and specificity<br>
+     2. calculate predictive error from the confusion matrix<br>
+     3. perform k-fold cross-validation for model selection <br>
+     4. plot ROC curve.   
+     </ul>        
+        
+        
+        
+<b>TOPICS:</b> The following topics will be covered this week.<br>
+<ul> 
+      <li> Estimating ture positive and false positive rates </li>
+      <li> Confusion matrix and predictive error </li>
+      <li> Cross-validation and ROC curve </li>
+      <li> Notes</li>
+          <ul>
+          <li><font color="red"><b>Class note </b>: </font> <a href="ww08/w08-321LogisticPredictiveModel-Capstone.html" target="popup" 
+                onclick="window.open('ww08/w08-321LogisticPredictiveModel-Capstone.html','name','width=900,height=500')">
+                <font color = "navy">[HTML]</font></a>   
+               <a href="ww08/w08-321LogisticPredictiveModel-Capstone.Rmd" target="popup" 
+                onclick="window.open('ww08/w08-321LogisticPredictiveModel-Capstone.Rmd','name','width=900,height=500')">
+                <font color = "navy">[RMD] </font></a>  
+               <a href="ww08/w08-321LogisticPredictiveModel-Capstone.pdf" target="popup" 
+                onclick="window.open('ww08/w08-321LogisticPredictiveModel-Capstone.pdf','name','width=900,height=500')">
+                <font color = "navy">[PDF]</font></a> 
+
+           </ul>
+        </ul>
+        
+
+<b>ASSIGNMENTS:</b> 
+      <ul>
+         <li> Reading Assignments</li>
+            <ul>
+             <li> <a href="https://ebookcentral.proquest.com/lib/wcupa/reader.action?docID=5259460&ppg=1" target="popup"   
+                   onclick="window.open('https://ebookcentral.proquest.com/lib/wcupa/reader.action?docID=5259460&ppg=1','name','width=900,height=500')">
+                    <font color = "navy">Chapter 4 of Ciaburro's eBook: Pages 134 - 154. Very nice interpretation for the odds ratios </font></a></li>
+
+             <li> <a href="https://www.r-bloggers.com/2015/08/evaluating-logistic-regression-models/" target="popup"  
+                   onclick="window.open('https://www.r-bloggers.com/2015/08/evaluating-logistic-regression-models/','name','width=900,height=500')">
+                    <font color = "navy">This blog discussed most of the topics we covered this week</font></a></li>
+             <li> <a href="http://www.utstat.toronto.edu/~brunner/oldclass/appliedf11/handouts/2101f11StepwiseLogisticR.pdf" target="popup"                     onclick="window.open('http://www.utstat.toronto.edu/~brunner/oldclass/appliedf11/handouts/2101f11StepwiseLogisticR.pdf','name','width=900,height=500')">
+                    <font color = "navy">Variable Selection in Logistic Regression with R code.</font></a></li>
+            </ul>
+
+          
+            <li> <font color = "red"><b>Week #8 Assignment </b>: </font>
+                <a href="ww08/w08-321Assignment.html" target="popup" 
+                onclick="window.open('ww08/w08-321Assignment.html','name','width=900,height=500')">
+                <font color = "navy">[HTML]</font> </a> 
+               <a href="ww08/w08-321Assignment.Rmd" target="popup" 
+                onclick="window.open('ww08/w08-321Assignment.Rmd','name','width=900,height=500')">
+                <font color = "navy">[RMD]</font> </a>
+               <a href="ww08/w08-321Assignment.pdf" target="popup" 
+                onclick="window.open('ww08/w08-321Assignment.pdf','name','width=900,height=500')">
+                <font color = "navy">[PDF]</font></a></li> 
+               <ul>
+                <li><font color = "red"> <b>Due</b>: 11:30 PM, Sunday. </font></li>
+                <li> <a href="https://d2l.wcupa.edu/d2l/login" target="popup"  
+                   onclick="window.open('https://d2l.wcupa.edu/d2l/login','name','width=900,height=500')">
+                    <font color = "navy"> <b>D2L Drop Box (link)</b></font></a></li>
+                   </ul>
+              </ul>
+</left><hr>
+
+    
+    
+
+<!-- MMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMM -->
+<h3 id="week09"  class="section">Week 09: Poisson Regression Models</h3>
+
+<hr><left>
+
+
+<b>LEARNING OBJECTIVES:</b> <font color = "#C5031D"> After finishing this module, you will be able to </font><br>
+    <ul>
+     1. perform the regression analysis on counts <br>
+     2. perform the regression analysis on rates  <br>
+     3. Interpret Poisson regression coefficients<br>   
+     </ul> 
+        
+        
+        
+<b>TOPICS:</b> The following topics will be covered this week.<br>
+<ul> 
+      <li> structure of Poisson model </li>
+      <li> regression on counts and rates </li>
+      <li> model-based visualization
+      <li> Notes</li>
+          <ul>
+          <li><font color="red"><b>Class note </b>: </font> <a href="ww09/w09-321pois-reg.html" target="popup" 
+                onclick="window.open('ww09/w09-321pois-reg.html','name','width=900,height=500')">
+                <font color = "navy">[HTML]</font></a>   
+               <a href="ww09/w09-321pois-reg.Rmd" target="popup" 
+                onclick="window.open('ww09/w09-321pois-reg.Rmd','name','width=900,height=500')">
+                <font color = "navy">[RMD] </font></a>  
+               <a href="ww09/w09-321pois-reg.pdf" target="popup" 
+                onclick="window.open('ww09/w09-321pois-reg.pdf','name','width=900,height=500')">
+                <font color = "navy">[PDF]</font></a> 
+
+           </ul>
+       </ul>
+
+    
+<b>ASSIGNMENTS</b>  
+      <ul>
+         <li> Reading Assignments</li>
+            <ul>
+
+             <li> <a href="https://www.dataquest.io/blog/tutorial-poisson-regression-in-r/" target="popup"  
+                   onclick="window.open('https://www.dataquest.io/blog/tutorial-poisson-regression-in-r/','name','width=900,height=500')">
+                    <font color = "navy">This blog discussed Poisson regression with R codes</font></a></li>
+
+             <li> <a href="https://cran.r-project.org/web/packages/pscl/vignettes/countreg.pdf" target="popup"  onclick="window.open('https://cran.r-project.org/web/packages/pscl/vignettes/countreg.pdf','name','width=900,height=500')">
+                    <font color = "navy">A nice article with more than what we covered this week.</font></a></li>
+            </ul>
+
+        <li> <font color = "red"><b>Week #9 Assignment</b>: </font>
+                <a href="ww09/w09-321Assignment.html" target="popup" 
+                onclick="window.open('ww09/w09-321Assignment.html','name','width=900,height=500')">
+                <font color = "navy">[HTML]</font> </a> 
+               <a href="ww09/w09-321Assignment.Rmd" target="popup" 
+                onclick="window.open('ww09/w09-321Assignment.Rmd','name','width=900,height=500')">
+                <font color = "navy">[RMD] </font></a> 
+               <a href="ww09/w09-321Assignment.pdf" target="popup" 
+                onclick="window.open('ww09/w09-321Assignment.pdf','name','width=900,height=500')">
+                <font color = "navy">[PDF]</font></a></li> 
+             <ul>
+                <li><font color = "red"> <b>Due</b>: Sunday. </font></li>
+                <li> <a href="https://d2l.wcupa.edu/d2l/login" target="popup"  
+                   onclick="window.open('https://d2l.wcupa.edu/d2l/login','name','width=900,height=500')">
+                    <font color = "navy"> <b>D2L Drop Box (link)</b></font></a></li>
+         </ul>
+        </ul>
+        
+</left><hr>
+
+
+
+<!-- MMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMM -->
+<h3 id="week10"  class="section">Week 10: Dispersed Poisson Regression Models</h3>
+
+<hr><left>
+        
+<b>LEARNING OBJECTIVES:</b> <font color = "#C5031D"> After finishing this module, you will be able to </font><br>
+    <ul>
+     1. calculate dispersion parameter <br>
+     2. build Quasi-Poisson regression models on counts and rates  <br>
+     3. interpret quasi-Poisson models<br>  
+     </ul> 
+                
+        
+<b>TOPICS:</b> The following topics will be covered this week.<br>
+<ul>
+      <li> Dispersion parameter </li>
+      <li> Dispersed Poisson regression on counts and rates </li>
+      <li> Modeling diagnostics
+      <li> Notes</li>
+          <ul>
+          <li><font color="red"><b>Class note </b>: </font> <a href="ww10/w10-321DispersedCountReg.html" target="popup" 
+                onclick="window.open('ww10/w10-321DispersedCountReg.html','name','width=900,height=500')">
+                <font color = "navy">[HTML]</font></a>   
+               <a href="ww10/w10-321DispersedCountReg.Rmd" target="popup" 
+                onclick="window.open('ww10/w10-321DispersedCountReg.Rmd','name','width=900,height=500')">
+                <font color = "navy">[RMD] </font></a>  
+               <a href="ww10/w10-321DispersedCountReg.pdf" target="popup" 
+                onclick="window.open('ww10/w10-321DispersedCountReg.pdf','name','width=900,height=500')">
+                <font color = "navy">[PDF]</font></a> 
+           </ul>
+       </ul>
+
+<b>LAB</b> Some basic in SQL
+     <ul>
+         <li> <b>SQL with SAS:</b> I encourage you to think about using the free SAS Studio via <b>SAS&reg;  OnDemand for Academics</b> <a href="https://www.sas.com/en_us/software/on-demand-for-academics.html">[link]</a>. You need to create a profile and use it to run your SAS code in the SAS cloud.</li> 
+         
+         <li> <a href = "https://github.com/pengdsci/sta321/raw/main/ww10/lab/w10-STA321Relational-Database-SQL-Clauses.pptx">Basics of Relational Databases</a> <font color = "red">[PPT]</font></li>
+         
+         <li><a href= "https://raw.githubusercontent.com/pengdsci/sta321/main/ww10/lab/SQL-basics.txt">Basics of SQL</a><font color = "red">[SAS code in txt format]</font>. <br>Three relational data tables used in the code are: <a href="https://raw.githubusercontent.com/pengdsci/sta321/main/ww10/lab/plots.csv">[plots.csv]</a>, <a href="https://raw.githubusercontent.com/pengdsci/sta321/main/ww10/lab/species.csv">[species.csv]</a>, <a href="https://raw.githubusercontent.com/pengdsci/sta321/main/ww10/lab/surveys.csv">[surveys.csv]</a></li>
+     </ul>
+
+<b>ASSIGNMENTS:</b> 
+      <ul>
+         <li> Reading Assignments</li>
+            <ul>
+             <li> <a href="https://www.dataquest.io/blog/tutorial-poisson-regression-in-r/" target="popup"  
+                   onclick="window.open('https://www.dataquest.io/blog/tutorial-poisson-regression-in-r/','name','width=900,height=500')">
+                    <font color = "navy">This blog discussed Poisson regression with R codes</font></a></li>
+
+             <li> <a href="https://cran.r-project.org/web/packages/pscl/vignettes/countreg.pdf" target="popup"                     onclick="window.open('https://cran.r-project.org/web/packages/pscl/vignettes/countreg.pdf','name','width=900,height=500')">
+                    <font color = "navy">A nice article with more than what we covered this week.</font></a></li>
+            </ul>
+          
+        <li> <font color = "red"><b>Week #10 Assignment </b>: </font>
+                <a href="ww10/w10-321Assignment.html" target="popup" 
+                onclick="window.open('ww10/w10-321Assignment.html','name','width=900,height=500')">
+                <font color = "navy">[HTML] </font></a>  
+               <a href="ww10/w10-321Assignment.Rmd" target="popup" 
+                onclick="window.open('ww10/w10-321Assignment.Rmd','name','width=900,height=500')">
+                <font color = "navy">[RMD]</font></a> 
+               <a href="ww10/w10-321Assignment.pdf" target="popup" 
+                onclick="window.open('ww10/w10-321Assignment.pdf','name','width=900,height=500')">
+                <font color = "navy">[PDF]</font></a></li> 
+                <ul>
+                   <li><font color = "red"> <b>Due:</b>Sunday. </font></li>
+                   <li><a href="https://d2l.wcupa.edu/d2l/login" target="popup"  
+                   onclick="window.open('https://d2l.wcupa.edu/d2l/login','name','width=900,height=500')">
+                    <font color = "navy"> <b>D2L Drop Box (link)</b></font></a></li>
+                   
+                </ul>
+         </ul>
+</left><hr>
+
+ 
+<!-- MMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMM -->
+<h3 id="week11"  class="section">Week 11: Concepts of Time Series</h3>
+
+<hr><left>
+    
+        
+<b>LEARNING OBJECTIVES:</b> <font color = "#C5031D"> After finishing this module, you will be able to </font><br>
+    <ul>
+     1. identify the types of times series. <br>
+     2. create time series objects.  <br>
+     3. build the baseline forecast models.<br>
+     4. calculate the acuracy measures.
+     </ul> 
+           
+    
+    
+<b>TOPICS:</b> The following topics will be covered this week.<br>
+<ul> 
+      <li> Technical terms of TS  </li>
+      <li> Type of TS data </li>
+      <li> Time series objects and the baseline forecasting methods
+      <li> Calculation of accuracy measures.
+      <li> <b>Class Note:</b> </li>
+          <ul>
+          <li><font color="red"><b>Class note </b>: </font> <a href="ww11/w11-TimeSeriesConcetps.html" target="popup" 
+                onclick="window.open('ww11/w11-TimeSeriesConcetps.html','name','width=900,height=500')">
+                <font color = "navy">[HTML]</font></a>   
+               <a href="ww11/w11-TimeSeriesConcetps.Rmd" target="popup" 
+                onclick="window.open('ww11/w11-TimeSeriesConcetps.Rmd','name','width=900,height=500')">
+                <font color = "navy">[RMD]</font></a>  
+               <a href="ww11/w11-TimeSeriesConcetps.pdf" target="popup" 
+                onclick="window.open('ww11/w11-TimeSeriesConcetps.pdf','name','width=900,height=500')">
+                <font color = "navy">[PDF]</font></a> 
+            </ul>
+
+       </ul>
+
+
+
+<b>ASSIGNMENTS:</b> 
+      <ul>
+         <li> Reading Assignments</li>
+            <ul>
+             <li> <a href="https://ebookcentral.proquest.com/lib/wcupa/reader.action?docID=5064689&ppg=11" target="popup"  
+                   onclick="window.open('https://ebookcentral.proquest.com/lib/wcupa/reader.action?docID=5064689&ppg=11','name','width=900,height=500')">
+                    <font color = "navy"> scan the first 2 chapters for the concepts used in the class note </font></a></li>
+
+             <li> <a href="https://otexts.com/fpp2/" target="popup" 
+                    onclick="window.open('https://otexts.com/fpp2/','name','width=900,height=500')">
+                    <font color = "navy">An excellent time series textbook: chapters 2 and 3.</font></a></li>
+            </ul>
+    
+        <li> <font color = "red"><b>Week #11 Assignment </b>: </font>
+                <a href="ww11/w11-321Assignment.html" target="popup" 
+                onclick="window.open('ww11/w11-321Assignment.html','name','width=900,height=500')">
+                <font color = "navy">[HTML]</font></a>   
+               <a href="ww11/w11-321Assignment.Rmd" target="popup" 
+                onclick="window.open('ww11/w11-321Assignment.Rmd','name','width=900,height=500')">
+                <font color = "navy">[RMD]</font></a>  
+               <a href="ww11/w11-321Assignment.pdf" target="popup" 
+                onclick="window.open('ww11/w11-321Assignment.pdf','name','width=900,height=500')">
+                <font color = "navy">[PDF]</font></a> </li> 
+               <ul>
+                <li><font color = "red"> <b>Due</b>: Sunday. </font></li>
+                <li> <a href="https://d2l.wcupa.edu/d2l/login" target="popup"  
+                   onclick="window.open('https://d2l.wcupa.edu/d2l/login','name','width=900,height=500')">
+                    <font color = "navy"> <b>D2L Drop Box(link)</b></font></a></li>
+               </ul>
+       </ul>
+</left><hr>
+    
+ 
+<!-- MMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMM -->
+<h3 id="week12"  class="section">Week 12: Moving Average and LOESS Smoothing</h3>
+
+<hr><left>
+    
+        
+<b>LEARNING OBJECTIVES:</b> <font color = "#C5031D"> After finishing this module, you will be able to </font><br>
+    <ul>
+     1. decompose time series into trend, seasonal, and random commponents. <br>
+     2. use STL frame work to decompose TS.  <br>
+     3. forecast with decomposition.
+     </ul> 
+               
+  
+    
+<b>TOPICS:</b> The following topics will be covered this week.<br>
+<ul>
+      <li> Components time series  </li>
+      <li> Classical decomposition of TS </li>
+      <li> STL decomposition of TS
+      <li> Forecast with decomposition.
+      <li> <b>Class Note</b> </li>
+          <ul>
+          <li><font color="red"><b>Class note </b>: </font> <a href="ww12/w12-321TimeSeriesDecomposition.html" target="popup" 
+                onclick="window.open('ww12/w12-321TimeSeriesDecomposition.html','name','width=900,height=500')">
+                <font color = "navy">[HTML]</font></a>   
+               <a href="ww12/w12-321TimeSeriesDecomposition.Rmd" target="popup" 
+                onclick="window.open('ww12/w12-321TimeSeriesDecomposition.Rmd','name','width=900,height=500')">
+                <font color = "navy">[RMD]</font></a>  
+               <a href="ww12/w12-321TimeSeriesDecomposition.pdf" target="popup" 
+                onclick="window.open('ww12/w12-321TimeSeriesDecomposition.pdf','name','width=900,height=500')">
+                <font color = "navy">[PDF]</font></a> 
+            </ul>
+       </ul>
+
+
+
+<b>ASSIGNMENTS:</b> 
+      <ul>
+         <li> Reading Assignments</li>
+            <ul>
+             <li> <a href="https://ebookcentral.proquest.com/lib/wcupa/reader.action?docID=5064689&ppg=11" target="popup"  
+                   onclick="window.open('https://ebookcentral.proquest.com/lib/wcupa/reader.action?docID=5064689&ppg=11','name','width=900,height=500')">
+                    <font color = "navy"> Section 3 of chapter 2: Time series Decomposition </font></a></li>
+
+             <li> <a href="https://otexts.com/fpp2/" target="popup" 
+                    onclick="window.open('https://otexts.com/fpp2/','name','width=900,height=500')">
+                    <font color = "navy">An excellent time series textbook: Chapter 6.</font></a></li>
+            </ul>
+        <li> <font color = "red"><b>Week #12 Assignment </b>: </font>
+                <a href="ww12/w12-321Assignment.html" target="popup" 
+                onclick="window.open('ww12/w12-321Assignment.html','name','width=900,height=500')">
+                <font color = "navy">[HTML]</font></a>   
+               <a href="ww12/w12-321Assignment.Rmd" target="popup" 
+                onclick="window.open('ww12/w12-321Assignment.Rmd','name','width=900,height=500')">
+                <font color = "navy">[RMD]</font></a>  
+               <a href="ww12/w12-321Assignment.pdf" target="popup" 
+                onclick="window.open('ww12/w12-321Assignment.pdf','name','width=900,height=500')">
+                <font color = "navy">[PDF]</font></a> </li> 
+                <ul>
+                    <li><font color = "red"> <b>Due</b>: Sunday. </font></li>
+                    <li>  <a href="https://d2l.wcupa.edu/d2l/login" target="popup"  
+                   onclick="window.open('https://d2l.wcupa.edu/d2l/login','name','width=900,height=500')">
+                    <font color = "navy"> <b>D2L Drop Box(link)</b></font></a></li>
+                </ul>
+         </ul>
+</left><hr>
+    
+
+<!-- MMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMM -->
+<h3 id="week13"  class="section">Week 13: Exponential Smoothing Models</h3>
+
+<hr><left>
+        
+<b>LEARNING OBJECTIVES:</b> <font color = "#C5031D"> After finishing this module, you will be able to </font><br>
+    <ul>
+     1. recognize and identify ETS models. <br>
+     2. fit SES, trend and seasonal models to appropriate data.  <br>
+     3. calculate prediction errors.
+     </ul> 
+  
+    
+<b>TOPICS:</b> The following topics will be covered this week.<br>
+  <ul>
+        <li> ETS framework  </li>
+        <li> Simple exponential smoothing model</li>
+        <li> Holt's trend models
+        <li> Holt-Winter's trend and seasonal smoothing models.
+        <li> <b>R Applications: Case study</b> </li>
+          <ul>
+          <li><font color="red"><b>Class Note </b>: </font> <a href="ww13/w13-ExponentialSmoothing.html" target="popup" 
+                onclick="window.open('ww13/w13-ExponentialSmoothing.html','name','width=900,height=500')">
+                <font color = "navy">[HTML]</font></a>   
+               <a href="ww13/w13-ExponentialSmoothing.Rmd" target="popup" 
+                onclick="window.open('ww13/w13-ExponentialSmoothing.Rmd','name','width=900,height=500')">
+                <font color = "navy">[RMD]</font></a>  
+               <a href="ww13/w13-ExponentialSmoothing.pdf" target="popup" 
+                onclick="window.open('ww13/w13-ExponentialSmoothing.pdf','name','width=900,height=500')">
+                <font color = "navy">[PDF]</font></a> 
+         </ul> 
+       </ul>
+
+<br>
+<b>ASSIGNMENTS:</b> 
+      <ul>
+         <li> Reading Assignments</li>
+            <ul>
+             <li> <a href="https://ebookcentral.proquest.com/lib/wcupa/reader.action?docID=5064689&ppg=11" target="popup"  
+                   onclick="window.open('https://ebookcentral.proquest.com/lib/wcupa/reader.action?docID=5064689&ppg=11','name','width=900,height=500')">
+                    <font color = "navy"> Chapter 3: Exponential Smoothing Models </font></a></li>
+
+             <li> <a href="https://otexts.com/fpp2/" target="popup" 
+                    onclick="window.open('https://otexts.com/fpp2/','name','width=900,height=500')">
+                    <font color = "navy">Time series Ebook: Chapter 7.</font></a></li>
+            </ul>
+
+        <li> <font color = "red"><b>Week #13 HW </b>: </font>
+                <a href="ww13/w13-321Assignment.html" target="popup" 
+                onclick="window.open('ww13/w13-321Assignment.html','name','width=900,height=500')">
+                <font color = "navy">[HTML] </font></a>  
+               <a href="ww13/w13-321Assignment.Rmd" target="popup" 
+                onclick="window.open('ww13/w13-321Assignment.Rmd','name','width=900,height=500')">
+                <font color = "navy">[RMD]</font></a>  
+               <a href="ww13/w13-321Assignment.pdf" target="popup" 
+                onclick="window.open('ww13/w13-321Assignment.pdf','name','width=900,height=500')">
+                <font color = "navy">[PDF]</font></a> </li>
+                <ul>
+                   <li><font color = "red"> <b>Due</b>: 11:30 PM, Wednesday. </font></li>
+                   <li> <a href="https://d2l.wcupa.edu/d2l/login" target="popup"  
+                   onclick="window.open('https://d2l.wcupa.edu/d2l/login','name','width=900,height=500')">
+                    <font color = "navy"> <b>D2L Drop Box(link)</b></font></a></li>
+          </ul>
+         </ul>
+</left><hr>
+    
+    
+
+<!-- MMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMM -->
+<h3 id="week14"  class="section">Week 14: Finalizing Project Report and Prepare Oral Presentation</h3>
+
+<hr><left>
+           <center><b><font color = "blue" size = 4> Schedule and Specifics</font></b></center><br>
+    <ul>
+       <li><b> Specifics</b></li>  
+          <ul>
+             <li> Prepare a Powerpoint presentation and submit it after the oral presentation.</li>
+             <li> Keep your presentation within 15 minutes including Q&A.    
+             <li> <a href="ww14/w14-321ProjectPresentationRubrics.pdf" target="popup" 
+                onclick="window.open('ww14/w14-321ProjectPresentationRubrics.pdf','name','width=900,height=500')">
+                <font color = "darkred"><b> Project Presentation Rubrics [link]</b> </font> </a>
+         </ul>
+    <li><b>Tentative Schedule (alphabetical order in the first name)</b></li>
+        <!--ul>
+        <li>  </li>
+        <li>  </li>  
+        <li>  </li>  
+        </ul-->     
+  </ul>
+</left><hr>
+    
+     
+    
+  
+
+<!--XXXXXXXXXXXXXXXXXXXXXXXXXXX  FOOTER  XXXXXXXXXXXXXXXXXXXXXXX-->
+</div>
+        <footer class="col-md-12">
+<hr>
+    <p class="text-center">Copyright &copy; 
+        <script>
+            var CurrentYear = new Date().getFullYear()
+            document.write(CurrentYear)
+        </script>
+       C. Peng. Last updated: 
+         <script> 
+            document.write(new Date().toLocaleDateString()); 
+         </script>
+
+ <a href='http://www.freevisitorcounters.com'>.</a> <script type='text/javascript' src='https://www.freevisitorcounters.com/auth.php?id=bdd86ca03bf3709e4523bf44ac939417956604f4'></script>
+<script type="text/javascript" src="https://www.freevisitorcounters.com/en/home/counter/832947/t/5"></script>   </p>
+</body>
+</html>
