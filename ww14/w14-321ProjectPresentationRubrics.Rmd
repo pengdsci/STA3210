@@ -1,0 +1,152 @@
+---
+title: 'Project Presentation Rubrics'
+author: 'STA321 - Advance Topics in Statistics'
+date: ""
+output:
+  html_document: 
+    toc: no
+    toc_depth: 4
+    fig_width: 6
+    fig_height: 4
+    fig_caption: yes
+    number_sections: yes
+    theme: readable
+  pdf_document: 
+    toc: no
+    toc_depth: 4
+    fig_caption: yes
+    number_sections: yes
+    fig_width: 5
+    fig_height: 4
+  word_document: 
+    toc: no
+    toc_depth: 4
+    fig_caption: yes
+    keep_md: yes
+---
+<style type="text/css">
+h1.title {
+  font-size: 20px;
+  color: DarkRed;
+  text-align: center;
+}
+h4.author { /* Header 4 - and the author and data headers use this too  */
+    font-size: 18px;
+  font-family: "Times New Roman", Times, serif;
+  color: DarkRed;
+  text-align: center;
+}
+h4.date { /* Header 4 - and the author and data headers use this too  */
+  font-size: 18px;
+  font-family: "Times New Roman", Times, serif;
+  color: DarkBlue;
+  text-align: center;
+}
+h1 { /* Header 3 - and the author and data headers use this too  */
+    font-size: 22px;
+    font-family: "Times New Roman", Times, serif;
+    color: darkred;
+    text-align: center;
+}
+h2 { /* Header 3 - and the author and data headers use this too  */
+    font-size: 18px;
+    font-family: "Times New Roman", Times, serif;
+    color: navy;
+    text-align: left;
+}
+
+h3 { /* Header 3 - and the author and data headers use this too  */
+    font-size: 15px;
+    font-family: "Times New Roman", Times, serif;
+    color: navy;
+    text-align: left;
+}
+
+h4 { /* Header 4 - and the author and data headers use this too  */
+    font-size: 18px;
+    font-family: "Times New Roman", Times, serif;
+    color: darkred;
+    text-align: left;
+}
+</style>
+
+```{r setup, include=FALSE}
+# install.packages("remotes") through github since it not
+# available from CRAN. 
+# 
+# remotes::install_github("rlesur/klippy")
+##
+# install.packages("webshot")
+# webshot::install_phantomjs()
+
+# code chunk specifies whether the R code, warnings, and output 
+# will be included in the output files.
+library(knitr)
+library(klippy)
+library(webshot)
+library(MASS)
+knitr::opts_chunk$set(echo = TRUE,      # include code chunk in the output file
+                      warnings = FALSE, # sometimes, you code may produce warning messages,
+                                        # you can choose to include the warning messages in
+                                        # the output file. 
+                      results = TRUE    # you can also decide whether to include the output
+                                        # in the output file.
+                      )  
+```
+
+\
+
+The total possible points is 20. The weights of all components are given in the following table of the common rubrics for all weekly assignments.
+
+\
+
+| Category and Scoring Criteria                         |Points Possible|Points Earned|
+|-------------------------------------------------------|---------------|-------------|
+|**Organization**:	                                    |**3.0**	      |             |
+|Presentation is appropriate for the topic and audience |0.5	          |             |
+|A clear opening statement and purpose                	|0.5            |             |
+|Information presented in logical sequence              |0.5            |	            |
+|Pertinent                                              |0.5            |             |
+|Design / layout: neat, clear and visually appealing    |0.5            |             |
+|Summarizes main points                                 |0.5            |             |
+|                                                       |               |             |
+|**Content**:	                                          |**6.0**        |             |    
+|Full understanding of the topics                     	|0.5            |	            |
+|Practical and analytic logics                          |0.5            |             |
+|Technical term well defined                            |0.5            |             |
+|Analytic justifications                                |0.5            |             |
+|Text content: straightforward, concise, and accurate   |0.5            |             |
+|Reference (acknowledge other’s contributions)          |0.5            |             |
+|                                                       |               |             |		
+|**Quality of Conclusion**:	                            |**2.0**        |             |	
+|Well justified and persuasive conclusions            	|0.5            |	            |
+|Limitations and potential improvements               	|0.5            |	            |
+|                                                       |               |             |
+|**Delivery**:	                                        |**5.0**	      |             |
+|Clear and audible voice                              	|0.5            |	            |
+|Projects enthusiasm, interest, and confidence.       	|1              |	            |
+|Interaction with audience                              |0.5            |             |
+|Presentation time management                         	|0.5	          |             |
+|                                                       |               |             |
+|**Visual Aids**:                                       |**2.0**	      |             |
+|Uses various visual tools to enhance presentation    	|0.5          	|             |
+|Effectively use colors and charts and avoid distraction|0.5            |           	|
+|                                                       |               |             |
+|**Response to Questions**:	                            |**2.0**	      |             |
+|Demonstrates full knowledge of topic                  	|0.5            |             |	
+|Explains and elaborates on all questions             	|0.5            |             |	
+
+
+
+\
+
+\
+
+\
+
+
+
+
+
+
+
