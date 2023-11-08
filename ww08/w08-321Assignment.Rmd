@@ -1,0 +1,160 @@
+---
+title: 'Week #8 - Assignment'
+author: 'Predictive Modeleling'
+date: "Due: Sunday"
+output:
+  pdf_document: 
+    toc: yes
+    toc_depth: 4
+    fig_caption: yes
+    number_sections: yes
+    fig_width: 3
+    fig_height: 3
+  word_document: 
+    toc: yes
+    toc_depth: 4
+    fig_caption: yes
+    keep_md: yes
+  html_document: 
+    toc: yes
+    toc_depth: 4
+    toc_float: yes
+    fig_width: 4
+    fig_caption: yes
+    number_sections: yes
+    theme: readable
+    fig_height: 4
+editor_options: 
+  chunk_output_type: inline
+---
+
+```{=html}
+
+<style type="text/css">
+
+/* Cascading Style Sheets (CSS) is a stylesheet language used to describe the presentation of a document written in HTML or XML. it is a simple mechanism for adding style (e.g., fonts, colors, spacing) to Web documents. */
+
+h1.title {  /* Title - font specifications of the report title */
+  font-size: 24px;
+  color: DarkRed;
+  text-align: center;
+  font-family: "Gill Sans", sans-serif;
+}
+h4.author { /* Header 4 - font specifications for authors  */
+  font-size: 20px;
+  font-family: system-ui;
+  color: DarkRed;
+  text-align: center;
+}
+h4.date { /* Header 4 - font specifications for the date  */
+  font-size: 18px;
+  font-family: system-ui;
+  color: DarkBlue;
+  text-align: center;
+}
+h1 { /* Header 1 - font specifications for level 1 section title  */
+    font-size: 22px;
+    font-family: system-ui;
+    color: navy;
+    text-align: left;
+}
+h2 { /* Header 2 - font specifications for level 2 section title */
+    font-size: 20px;
+    font-family: "Times New Roman", Times, serif;
+    color: navy;
+    text-align: left;
+}
+
+h3 { /* Header 3 - font specifications of level 3 section title  */
+    font-size: 18px;
+    font-family: "Times New Roman", Times, serif;
+    color: navy;
+    text-align: left;
+}
+
+h4 { /* Header 4 - font specifications of level 4 section title  */
+    font-size: 18px;
+    font-family: "Times New Roman", Times, serif;
+    color: darkred;
+    text-align: left;
+}
+
+body { background-color:white; }
+
+.highlightme { background-color:yellow; }
+
+p { background-color:white; }
+
+</style>
+```
+```{r setup, include=FALSE}
+# Detect, install and load packages if needed.
+if (!require("knitr")) {
+   install.packages("knitr")
+   library(knitr)
+}
+if (!require("pander")) {
+   install.packages("pander")
+   library(pander)
+}
+if (!require("mlbench")) {
+   install.packages("mlbench")
+   library(mlbench)
+}
+#
+# specifications of outputs of code in code chunks
+knitr::opts_chunk$set(echo = TRUE,      
+                      warnings = FALSE,   
+                      messages = FALSE,  
+                      results = TRUE     
+                      )   
+```
+
+\
+
+This week’s assignment focuses on binary predictive modeling using the logistic regression model. I used the same data set that was used in the previous few weeks to build a logistic predictive model for predicting the occurrence of diabetes.
+You are expected to use the same data set you used in the three of your assignment to build a predictive logistic regression model.
+
+Please read the note carefully and reproduce my analysis to make sure you understand the concepts and my analysis logic in the analysis.
+
+The write-up of your assignment should be the same as my case study (section 3 of my class note for this week). To be more specific, you are expected to use my case study as a template to complete this assignment. The following are the major components I expected you to include in your report.
+
+* Introduction - description of what you plan to do in the analysis
+
+* Description of data and variables
+
+  + information on the data collection process.
+  
+  + list of variable names and **definitions**.
+  
+* Research question(s) - what is the objective of the analysis
+
+* Variable transformation and discretization
+
+  + list the numerical variables you standardize
+  
+  + list of the variable you discretize
+  
+* Data split - the proportions of data for training and testing sets
+
+* Candidate models - you can the candidate model you used in the previous assignment on the multiple logistic regression model.
+
+* The final model selection
+
+  + Cross-validation method
+  
+  + ROC approach (**This is optional**)
+
+
+
+
+
+
+
+
+
+
+
+
+
+

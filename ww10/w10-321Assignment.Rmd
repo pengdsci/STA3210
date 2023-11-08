@@ -1,0 +1,127 @@
+---
+title: 'Week #10: Dispersed Poisson Regression'
+author: 'Due: 04/09/2023'
+date: " "
+output:
+  html_document: 
+    toc: no
+    toc_depth: 4
+    fig_width: 6
+    fig_height: 4
+    fig_caption: yes
+    number_sections: yes
+    theme: readable
+  pdf_document: 
+    toc: no
+    toc_depth: 4
+    fig_caption: yes
+    number_sections: yes
+    fig_width: 5
+    fig_height: 4
+  word_document: 
+    toc: no
+    toc_depth: 4
+    fig_caption: yes
+    keep_md: yes
+---
+<style type="text/css">
+h1.title {
+  font-size: 20px;
+  color: DarkRed;
+  text-align: center;
+}
+h4.author { /* Header 4 - and the author and data headers use this too  */
+    font-size: 18px;
+  font-family: "Times New Roman", Times, serif;
+  color: DarkRed;
+  text-align: center;
+}
+h4.date { /* Header 4 - and the author and data headers use this too  */
+  font-size: 18px;
+  font-family: "Times New Roman", Times, serif;
+  color: DarkBlue;
+  text-align: center;
+}
+h1 { /* Header 3 - and the author and data headers use this too  */
+    font-size: 22px;
+    font-family: "Times New Roman", Times, serif;
+    color: darkred;
+    text-align: center;
+}
+h2 { /* Header 3 - and the author and data headers use this too  */
+    font-size: 18px;
+    font-family: "Times New Roman", Times, serif;
+    color: navy;
+    text-align: left;
+}
+
+h3 { /* Header 3 - and the author and data headers use this too  */
+    font-size: 15px;
+    font-family: "Times New Roman", Times, serif;
+    color: navy;
+    text-align: left;
+}
+
+h4 { /* Header 4 - and the author and data headers use this too  */
+    font-size: 18px;
+    font-family: "Times New Roman", Times, serif;
+    color: darkred;
+    text-align: left;
+}
+</style>
+
+```{r setup, include=FALSE}
+# code chunk specifies whether the R code, warnings, and output 
+# will be included in the output files.
+if (!require("ISwR")) {
+   install.packages("ISwR")
+   library(ISwR)
+}
+if (!require("MASS")) {
+   install.packages("MASS")
+   library(MASS)
+}
+if (!require("knitr")) {
+   install.packages("knitr")
+   library(knitr)
+}
+
+knitr::opts_chunk$set(echo = TRUE,       # include code chunk in the output file
+                      warnings = FALSE,  # sometimes, you code may produce warning messages,
+                                         # you can choose to include the warning messages in
+                                         # the output file. 
+                      results = TRUE,    # you can also decide whether to include the output
+                                         # in the output file.
+                      message = FALSE,
+                      fig.align='center', 
+                      fig.pos = 'ht'
+                     
+                      )  
+```
+
+\
+
+\
+
+This week's assignment is to revise your analysis in Week #9 by adding a new section to include a quasi-Poisson model to the report. In this new analysis, we modify the predictor variables in the following ways.
+
+1. Instead of using two variables **HightTemp** and **LowTemp** in the model, we will use the new variable **AvgTemp = (HighTemp + LowTemp)/2**.
+
+2. Discretize **Precipitation** using the following definition: if **Precipitation** = 0, then NewPrecip = 0; if **Precipitation** > 0, then NewPrecip = 1.
+
+The dispersed Poisson regression model will have three predictor variables: **Day**, **AvgTemp**, and **NewPrecip**.
+
+  
+Here are the steps for building the model (similar to the case study in the class note):
+
+1. Fit the quasi-Poisson regression model on the counts of cyclists who entered and left the Bridge in your data set.
+
+2. Report the value of the estimated dispersion parameter and based on the value determine whether the regular Poisson model or the quasi-Poisson should be used as the final model. The two models have the same estimated coefficients by different p-values.
+
+3. Make a visualization to show the relationship between the number of cyclists who entered and left the bridge and the related predictor variables.
+
+
+
+
+
+

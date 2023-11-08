@@ -1,0 +1,160 @@
+---
+title: 'Project Presentation Rubrics'
+author: 'STA321 - Advance Topics in Statistics'
+date: ""
+output:
+  html_document: 
+    toc: no
+    toc_depth: 4
+    fig_width: 6
+    fig_height: 4
+    fig_caption: yes
+    number_sections: yes
+    theme: readable
+  pdf_document: 
+    toc: no
+    toc_depth: 4
+    fig_caption: yes
+    number_sections: yes
+    fig_width: 5
+    fig_height: 4
+  word_document: 
+    toc: no
+    toc_depth: 4
+    fig_caption: yes
+    keep_md: yes
+---
+<style type="text/css">
+div#TOC li {
+    list-style:none;
+    background-image:none;
+    background-repeat:none;
+    background-position:0;
+}
+h1.title {
+  font-size: 20px;
+  color: DarkRed;
+  text-align: center;
+}
+h4.author { /* Header 4 - and the author and data headers use this too  */
+    font-size: 18px;
+  font-family: "Times New Roman", Times, serif;
+  color: DarkRed;
+  text-align: center;
+}
+h4.date { /* Header 4 - and the author and data headers use this too  */
+  font-size: 18px;
+  font-family: "Times New Roman", Times, serif;
+  color: DarkBlue;
+  text-align: center;
+}
+h1 { /* Header 3 - and the author and data headers use this too  */
+    font-size: 22px;
+    font-family: "Times New Roman", Times, serif;
+    color: darkred;
+    text-align: center;
+}
+h2 { /* Header 3 - and the author and data headers use this too  */
+    font-size: 18px;
+    font-family: "Times New Roman", Times, serif;
+    color: navy;
+    text-align: left;
+}
+
+h3 { /* Header 3 - and the author and data headers use this too  */
+    font-size: 15px;
+    font-family: "Times New Roman", Times, serif;
+    color: navy;
+    text-align: left;
+}
+
+h4 { /* Header 4 - and the author and data headers use this too  */
+    font-size: 18px;
+    font-family: "Times New Roman", Times, serif;
+    color: darkred;
+    text-align: left;
+}
+</style>
+
+```{r setup, include=FALSE}
+# install.packages("remotes") through github since it not
+# available from CRAN. 
+# 
+# remotes::install_github("rlesur/klippy")
+##
+# install.packages("webshot")
+# webshot::install_phantomjs()
+
+# code chunk specifies whether the R code, warnings, and output 
+# will be included in the output files.
+library(knitr)
+library(klippy)
+library(webshot)
+library(MASS)
+knitr::opts_chunk$set(echo = TRUE,      # include code chunk in the output file
+                      warnings = FALSE, # sometimes, you code may produce warning messages,
+                                        # you can choose to include the warning messages in
+                                        # the output file. 
+                      results = TRUE    # you can also decide whether to include the output
+                                        # in the output file.
+                      )  
+```
+
+```{r klippy, echo=FALSE, include=TRUE}
+#klippy::klippy(position = c('top', 'right'),color = 'darkred',tooltip_message = 'Click to copy', tooltip_success = 'Done')
+```
+
+
+
+\
+
+The total possible points is 10. The weights of all components are given in the following table of the common rubrics for all weekly assignments.
+
+\
+
+|Rubric for Weekly Assignments                          |Points Possible|Points Earned|
+|-------------------------------------------------------|---------------|-------------|
+|**Introduction/Title**:	                              |1.5	          |             |
+|Title is clear and reflects the analysis             	|0.5	          |             |
+|Clearly describes the question that is being addressed	|0.5            |             |
+|Clearly states the research question of interest	      |0.5            |	            |
+|                                                       |               |             |
+|**Data Collection**:	                                      |1            	|             |    
+|The method of data collection is clearly described	|0.5|	|
+|List of the variables and their corresponding definitions|	0.5||	
+|                                                       |               |             |		
+|**Exploratory Data Analysis**:	|1.5||	
+|Variable inspection, transformation, and standardization	|0.5|	|
+|Pairwise scatter plot and potential collinearity	|0.5|	|
+|Summary statistics		|0.5| |
+|                                                       |               |             |
+|**Modeling and Inferential Statistics**:	|2.5	||
+|Appropriate models	|0.5|	|
+|Model search process	|1|	|
+|Final model and justification|	0.5	||
+|Model diagnostics and interpretation	|0.5	||
+|                                                       |               |             |
+|**Discussion and Conclusions**:|	2	||
+|Clearly and correctly addresses the question of interest	|0.5	||
+|Concise, accurate, and straightforward summary of the findings|	0.5|	|
+|Drawbacks and limitations of the analysis|	0.5	||
+|Improvements and generalizations	|0.5	||
+|                                                       |               |             |
+|**Overall Impression**:	|1.5	||
+|Figures and tables included in the report must support some arguments	|0.5||	
+|Organized to answer the question of interest	|0.5||	
+|Question of interest is non-trivial and well-formulated	|0.5	||
+
+
+\
+
+\
+
+\
+
+
+
+
+
+
+

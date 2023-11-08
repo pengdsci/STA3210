@@ -1,0 +1,417 @@
+/*********************************************
+  Week 11: Basic Syntax and Clauses in SQL
+                STA321 Labs
+      Topics: loading data and examples
+      1. Loading thre relation data files
+      2. Basic SQL clauses and keywords
+**********************************************/
+LIBNAME sql "/home/u50445699/STA321";
+
+
+/*|||||||||||||||||||||||||||||||||||||||||
+   PART I:   loading three data files  
+|||||||||||||||||||||||||||||||||||||||||||*/
+
+PROC IMPORT OUT= SQL.survey 
+            DATAFILE= "C:\STA551\w02\surveys.csv" 
+            DBMS=CSV REPLACE;
+     GETNAMES=YES;
+	 GUESSINGROWS = MAX;
+     DATAROW=2; 
+RUN;
+
+PROC IMPORT OUT= SQL.species 
+            DATAFILE= "C:\STA551\w02\species.csv" 
+            DBMS=CSV REPLACE;
+     GETNAMES=YES;
+	 GUESSINGROWS = MAX;
+     DATAROW=2; 
+RUN;
+
+
+PROC IMPORT OUT= SQL.plots 
+            DATAFILE= "C:\STA551\w02\plots.csv" 
+            DBMS=CSV REPLACE;
+     GETNAMES=YES;
+	 GUESSINGROWS = MAX;
+     DATAROW=2; 
+RUN;
+
+
+
+
+/*||||||||||||||||||||||||||||||||||||||||||||||
+   PART II:   Basic SQL Syntax and Clauses  
+|||||||||||||||||||||||||||||||||||||||||||||||||*/
+
+
+
+
+
+/***************************************************
+      1. First query with clause SELECT  
+
+     (a). Create a table view
+     (b). Create a new table (SAS data set)
+****************************************************/
+
+*Table view;   
+PROC SQL;
+SELECT year
+FROM sql.survey;
+QUIT;
+
+* create a new table;
+PROC SQL;
+CREATE TABLE sql.YMD AS
+SELECT year, 
+       month, 
+       day
+FROM sql.survey;
+QUIT;
+
+* create a new table: select all variables;
+PROC SQL;
+CREATE TABLE sql.survey_all AS
+SELECT *
+FROM sql.survey;
+QUIT;
+
+/*CAUTION: SQL uses "CREATE VIEW name_of_table AS" to 
+  create a view table that is saved in the database and 
+  can be used to look at, filter, and even update information. 
+
+/*********************************
+    2. Select unique values
+**********************************/
+
+* one variable;
+PROC SQL;
+SELECT DISTINCT year
+FROM sql.survey;
+QUIT;
+
+* two variable;
+PROC SQL;
+SELECT DISTINCT year, 
+                species_id
+FROM sql.survey;
+QUIT;
+
+
+/*****************************************
+         3. Calculated values
+******************************************/
+
+* Create a view;
+PROC SQL;
+SELECT year, 
+       month, 
+       day, 
+       weight/1000.0
+FROM sql.survey;
+QUIT;
+
+* Create a table and define a new variable
+  based on the calculated values;
+PROC SQL;
+CREATE TABLE sql.Add_new_var AS
+SELECT year, 
+       month, 
+       day, 
+       weight/1000.0 AS wt_kilo
+FROM sql.survey;
+QUIT;
+
+* Using function ROUND();
+* CAUTION: ROUND() in PROC SQL is an SAS function!
+* To keep 2 decimal places, SAS uses ROUND(number, 0.01)
+                            SQL uses ROUND(number, 2);
+PROC SQL;
+SELECT plot_id, 
+       species_id, 
+       sex, 
+       weight, 
+       ROUND(weight / 1000.0, 0.01) /* ROUND() is a SAS function! */
+FROM sql.survey;
+QUIT;
+
+/*****************************************
+        4. Filtering
+******************************************/
+
+* subsetting by filtering - WHERE statement;
+* Single condition;
+PROC SQL;
+SELECT *
+FROM sql.survey
+WHERE species_id='DM';
+QUIT;
+
+
+* Multiple conditions: AND;
+PROC SQL;
+SELECT *
+FROM sql.survey
+WHERE (year >= 2000) AND (species_id = 'DM');
+QUIT;
+
+* Multiple conditions: OR;
+PROC SQL;
+SELECT *
+FROM sql.survey
+WHERE (species_id = 'DM') OR (species_id = 'DO') OR (species_id = 'DS');
+QUIT;
+
+
+/******************************************************
+        5. Special Keywords simplify WHERE statement
+*******************************************************/
+* use of keyword IN;
+PROC SQL;
+SELECT *
+FROM sql.survey
+WHERE (year >= 2000) AND (species_id IN ('DM', 'DO', 'DS'));
+QUIT;
+
+
+/**************************************
+        6. Sorting Variables
+***************************************/
+
+* Ascending ordering - default;
+PROC SQL;
+SELECT *
+FROM sql.species
+ORDER BY taxa ASC;
+QUIT;
+
+* descending ordering;
+PROC SQL;
+SELECT *
+FROM sql.species
+ORDER BY taxa DESC;
+QUIT;
+
+* sorting multiple variables- nest sorting;
+PROC SQL;
+SELECT *
+FROM sql.species
+ORDER BY genus ASC, species ASC;
+QUIT;
+
+/**************************************
+        7.	Order of Execution
+***************************************/
+*Clauses are written in a fixed order: SELECT, FROM, WHERE, then ORDER BY. ;
+PROC SQL;
+SELECT genus, species
+FROM sql.species
+WHERE taxa = 'Bird'
+ORDER BY species_id ASC;
+QUIT;
+
+
+/************************************************
+        8.	Summary Statistics with groups
+*************************************************/
+
+*no group - Using the wildcard simply counts the number of records (rows);
+PROC SQL;
+SELECT COUNT(*)
+FROM sql.survey;
+QUIT;
+
+* calculate the sum of a numerical variable;
+PROC SQL;
+SELECT COUNT(*) ,
+       SUM(weight)
+FROM sql.survey;
+QUIT;
+
+* calculate the sum of a numerical variable - adding names of summary statistics;
+PROC SQL;
+SELECT COUNT(*) AS sample_size,
+       SUM(weight) AS total_weight
+FROM sql.survey;
+QUIT;
+
+*summary statistics within subgroups - GROUP BY clause;
+* This is equalent to a univeriable frequency table;
+PROC SQL;
+SELECT species_id, 
+       COUNT(*)
+FROM sql.survey
+GROUP BY species_id;
+QUIT;
+
+/***************************************************************
+        8.	HAVING clause based on aggregated variables
+***************************************************************/
+
+* conditioning on species size;
+PROC SQL;
+SELECT species_id, 
+       COUNT(species_id)
+FROM sql.survey
+GROUP BY species_id
+HAVING COUNT(species_id) > 10;
+QUIT;
+
+* conditioning on species size - a better code;
+PROC SQL;
+SELECT species_id, 
+       COUNT(species_id) AS species_size
+FROM sql.survey
+GROUP BY species_id
+HAVING species_size > 10;
+QUIT;
+
+/***************************************************************
+        9.	Ordering aggregated results.
+***************************************************************/
+
+* sorting aggregated variables -- This DOES NOT work!
+* Summary functions are restricted to the SELECT and HAVING clauses only;
+PROC SQL;
+SELECT species_id, 
+       COUNT(*) 
+FROM sql.survey
+GROUP BY species_id
+ORDER BY COUNT(species_id);
+QUIT;
+
+* sorting aggregated variables;
+* use the new name in the ORDER BY clause;
+PROC SQL;
+SELECT species_id AS subtotal, 
+       COUNT(*) 
+FROM sql.survey
+GROUP BY species_id
+ORDER BY subtotal;
+QUIT;
+
+
+/*************************************************
+        10.	NULL - Working with Missing values
+**************************************************/
+
+* keyword IS;
+PROC SQL;
+SELECT *
+FROM sql.survey
+WHERE species_id IS NULL;
+QUIT;
+
+* keyword IS NOT;
+PROC SQL;
+SELECT *
+FROM sql.survey
+WHERE species_id IS NOT NULL;
+QUIT;
+
+* for non-missing values, we use IS/IS NOT or =/!=;
+* CAUTION: "=" and "==" both work in SQL, However, "==" does NOT in SAS.;
+PROC SQL;
+SELECT SUM(weight), 
+       COUNT(*), 
+       SUM(weight)/COUNT(*)
+FROM sql.survey
+WHERE species_id = 'PE';
+QUIT;
+
+* for non-missing values, we use IS/IS NOT or =/!=;
+* CAUTION: "=" and "==" both work in SQL, However, "==" does NOT in SAS.;
+* != works in SQL, but not in SAS. ^= works in SAS;
+PROC SQL;
+SELECT SUM(weight), 
+       COUNT(*), 
+       SUM(weight)/COUNT(*)
+FROM sql.survey
+WHERE species_id ^= 'PE';
+QUIT;
+
+
+/*************************************************
+     11.  Working with multiple tables: JOIN
+**************************************************/
+
+*INNER JOIN;
+*Need to use ALIAS to rename/name the data set since
+ the files are stored in the SAS permanent libaray;
+PROC SQL;
+SELECT *
+FROM sql.survey AS surveys
+JOIN sql.species AS species
+ON surveys.species_id = species.species_id;
+QUIT;
+
+* we can simply rename the tables as A and B using alias;
+PROC SQL;
+CREATE TABLE sql.INNERJOIN AS
+SELECT *
+FROM sql.survey AS A
+JOIN sql.species AS B
+ON A.species_id = B.species_id;
+QUIT;
+
+*left join;
+PROC SQL;
+CREATE TABLE sql.LEFTJOIN AS
+SELECT *
+FROM sql.survey AS A
+LEFT JOIN sql.species AS B
+ON A.species_id = B.species_id;
+QUIT;
+
+*right join;
+PROC SQL;
+CREATE TABLE sql.RIGHTJOIN AS
+SELECT *
+FROM sql.survey AS A
+RIGHT JOIN sql.species AS B
+ON A.species_id = B.species_id;
+QUIT;
+
+*full join;
+PROC SQL;
+CREATE TABLE sql.FULLTJOIN AS
+SELECT *
+FROM sql.survey AS A
+FULL JOIN sql.species AS B
+ON A.species_id = B.species_id;
+QUIT;
+
+* We can select some variables from individual tables
+* then join the two sub tables.;
+* CAUTION: We will NOT select any variables in species table 
+*  to include in the new table;
+PROC SQL;
+SELECT A.species_id, 
+       A.sex, 
+       AVG(a.hindfoot_length) as mean_foot_length  
+FROM sql.survey  AS A
+JOIN sql.species AS B
+ON A.species_id=B.species_id 
+WHERE taxa = 'Rodent' AND A.sex IS NOT NULL 
+GROUP BY A.species_id, A.sex;
+QUIT;
+
+/*************************************************
+     12.  Nest Queries
+**************************************************/
+
+* nest queries;
+* The SELECT ... FROM in the denominator is self-contained
+* It is NOT affected by GROUP BY statement. THe COUNT() function
+* returns the total size of the data;
+PROC SQL;
+SELECT B.taxa, 
+       100.0*COUNT(*)/(SELECT COUNT(*) FROM sql.survey)  AS Percentage
+FROM sql.survey AS A
+JOIN sql.species AS B
+ON A.species_id = B.species_id 
+GROUP BY taxa;
+QUIT;
+
+

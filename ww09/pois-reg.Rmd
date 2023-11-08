@@ -1,0 +1,331 @@
+---
+title: "Case Study- Poisson Regression for Counts and Rates"
+author: "Cheng Peng"
+date: "10/29/2020"
+output:
+  pdf_document:
+    toc: yes
+    fig_height: 5
+    number_sections: yes
+    fig_caption: yes
+  word_document:
+    toc: yes
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE, warning=FALSE, results=TRUE)
+```
+
+# Introduction
+
+In STA319 and STA320, the primary regression models are normal linear models. The basic distributional assumption is that the residuals follow a normal distribution with mean zero and constant variance. Other assumptions are the covariates (predictor variable) are assumed to uncorrelated. Of course, the functional form must be correctly specified.
+
+Since the predictor variables are assumed to be non-random variables. This means that the response variable is a normal random variable - a special continuous random variable.
+
+The regression coefficients are estimated by the least square method - also the least square estimation (LSE). When making inferences about the LSE, we still assume the residuals are normally distributed in order to construct confidence intervals of the regression coefficients and test the significance of the regression coefficient as well.
+
+However, many continuous variables in the real world are not normally distributed, for example, a system’s lifetime in reliability engineering, toxic concentrations in underground water, survival times of cancer patients who received surgery, the waiting time of a customer at a service desk, etc. These random variables are not normal.
+
+The response variable in this project is discrete - lung cancer count which can be converted to the mortality rate using the population size. We will use the models in the new family of generalized linear models (GLM).
+
+
+```{r include=FALSE}
+if (!require("ISwR")) {
+   install.packages("ISwR")
+   library(ISwR)
+}
+if (!require("MASS")) {
+   install.packages("MASS")
+   library(MASS)
+}
+if (!require("knitr")) {
+   install.packages("knitr")
+   library(knitr)
+}
+```
+
+# Generalized Linear Models
+
+As in the linear regression model, we also assume predictor variables are non-random. Since the response variables in GLM are discrete, there are several commonly used distributions we can consider for building various GLMs. Two particularly important GLM models are logistic regression models and Poisson regression models. The family of logistic regression models assumes either binomial or multinomial distributions while Poisson regression models assume that the response variable follows a Poisson distribution.
+
+In this project, we have two primary random variables that frequency counts: confirmed COVID-19 cases and death counts. The typical models that can be used to model frequency counts are the Poisson regression model and negative binomial regression.
+
+In this case study, we will use a well-known data set that has death counts in a cancer study. Before we move to the data analysis, we first introduce the structure of the Poisson regression model.
+
+
+## Structure of Poisson Regression Model
+
+There two types of Poisson models: frequencies and rates.
+
+### Poisson Models for Counts
+
+Let Y be the response variable that takes frequency counts as values. X is the set of predictor variables such as demographics and social determinants. Let $\mu=E[Y]$ be the mean of the response variable. The regression model has the following analytical expression.
+
+$$
+\log(\mu) = \beta_0 + \beta_1 x_1 + \beta_2 x_2 + \cdots + \beta_p x_p
+$$
+$\beta_0, \beta_1, \cdots, \beta_p$ are coefficients of Poisson regression model. The interpretation of the regression coefficient $\beta_i$ is as following
+
+
+* $\exp(\beta_0)$ = effect on the mean of $Y$, that is $mu$, when $X = 0$.
+
+* $\exp(\beta_i)$ = with every unit increase in $X$, the predictor variable has multiplicative effect of $\exp(\beta_i)$ on the mean of $Y$, that is $\mu$.
+
+  - If $\beta_i = 0$, then $\exp(\beta_i) = 1$, and the expected count, $\mu = E(y) = \exp(\beta_i)$, and $Y$ and $X_i$ are not correlated.
+
+  - If $\beta_i > 0$, then $\exp(\beta_i) > 1$, and the expected count, $\mu = E(y)$ is $\exp(\beta_i)$ times larger than when $X_i = 0$.
+
+  - If $\beta_i < 0$, then $\exp(\beta_i) < 1$, and the expected count, $\mu = E(y)$ is $\exp(\beta_i)$ times smaller than when $X_i = 0$.
+
+### Poisson Models for Rates
+
+Poisson log-linear regression model for the expected rate of the occurrence of the event is:
+
+$$
+\log(\mu/t) = \beta_0 + \beta_1 x_1 + \beta_2 x_2 + \cdots + \beta_p x_p
+$$
+This can be re-expressed to:
+
+$$
+\log(\mu)=\beta_0 + \beta_1 x_1 + \beta_2 x_2 + \cdots + \beta_p x_p+\log(t)
+$$
+
+The term $\log(t)$ is referred to as an offset. It is an adjustment term and a group of observations may have the same offset, or each individual may have a different value of t. $\log(t)$ is an observation and it will change the value of estimated counts:
+
+
+$$
+\mu=\exp[(]\beta_0 + \beta_1 x_1 + \beta_2 x_2 + \cdots + \beta_p x_p+log(t)]\\
+= t\exp(\beta_0)\exp(\beta_1 x_1 + \beta_2 x_2 + \cdots + \beta_p x_p)
+$$
+This means that mean count is proportional to t.
+
+Note that the interpretation of parameter estimates $\beta_0$ and $\beta_1, \beta_2, \cdots, \beta_p$ will stay the same as for the model of counts; you just need to multiply the expected counts by t.
+
+
+## Estimation of Regression Coefficients and Goodness-of-fit
+
+Unlike the linear regression in which we have assumptions about the residuals. The estimated residuals can be used to test the assumptions about the distribution. In GLM, the goodness-of-fit is much more complex than the normal-based regression modeling.
+
+The estimation of the regression coefficients is based on the maximum likelihood estimation (MLE) which requires numerical solutions. We will not go to details about how to estimate the regression coefficients and goodness-of-fit. Instead, we will focus on data analysis, in particular, the interpretation of regression coefficients.
+
+
+
+# Data Analysis
+
+In this section, we use cancer data that have a frequency count and other predictor variables. The data set was built in the R library {ISwR}.
+
+```{r}
+data(eba1977)
+kable(head(eba1977), caption = "First few records in the data set") 
+# check the values of the variables in the data set
+```
+
+The data set represented the lung cancer incidence in four Danish cities 1968-1971. This data set contains counts of incident lung cancer cases and population size in four neighboring Danish cities by age group. The primary random response variable is lung cancer cases. The predictor variables are the age group and the total population size of the neighboring cities.
+
+## Poisson Regression on Cancer Counts
+
+We first build a Poisson frequency regression model and ignore the population size of each city in the data.
+
+```{r}
+model.freq <- glm(cases ~ city + age, family = poisson(link = "log"), data = eba1977)
+##
+pois.count.coef = summary(model.freq)$coef
+kable(pois.count.coef, caption = "The Poisson regression model for the counts of lung 
+      cancer cases versus the geographical locations and the age group.")
+
+```
+
+
+The above inferential table about the regression coefficients indicates both city and age are insignificant. This means, if we look at the cancer count across the age group and city, there is no statistical evidence to support the potential discrepancy across the age groups and the cities. However, this does not imply that the model is meaningless from the practical perspective since statistical significance is not equivalent the clinical importance. Moreover, the sample size could impact the statistical significance of some of the variables.
+The other way to look at the model is the appropriateness of model. The cancer counts are dependent on the population sizes. Ignoring the population size implies the information in the sample was not effectively used. In the next subsection, we model the cancer rates that involve the population size.
+
+
+The other way to look at the model is the appropriateness of the model. The cancer counts are dependent on the population sizes. Ignoring the population size implies the information in the sample was not effectively used. In the next subsection, we model the cancer rates that involve the population size.
+
+
+## Poisson Regression on Rates
+
+The following model assesses the potential relationship between cancer death rates and age. This is the primary interest of the model. We also want to adjust the relation be the potential neighboring cities.
+
+```{r}
+model.rates <- glm(cases ~ city + age, offset = log(pop), 
+                   family = poisson(link = "log"), data = eba1977)
+
+kable(summary(model.rates)$coef, caption = "Poisson regression on the rate of the 
+      cancer rate in the four Danish cities adjusted by age.")
+
+```
+
+The above table indicates that the log of cancer rate is not identical across the age groups and among the four cities. To be more specific, the log rates of Fredericia (baseline city) was higher than in the other three cities. The youngest age group (45-55) has the lowest log rate. The regression coefficients represent the change of log rate between the associate age group and the reference age group. The same interpretation applies to the change in log rate among the cities.
+
+# Statistical Visulalization
+
+The inferential tables of the Poisson regression models in the previous sections give numerical information about the potential discrepancy across the age group and among the cities. But it is not intuitive. Next, we create two graphics that make the hidden pattern visible.
+
+The following calculation is based on the regression equation with coefficients given in the above table 3. Note that all variables in the model are indicator variables. Each of these indicator variables takes only two possible values: 0 and 1.
+
+For example, $\exp(-5.632)$ gives the cancer rate of baseline city, Fredericia, and the baseline age group [45-54]. $\exp(-5.632+1.101)$ gives the cancer rate of baseline city, Fredericia, and age group [55-59]. Following the same pattern, you can find the cancer rate for each combination of the city and age group.
+
+
+```{r}
+# Fredericia
+Fredericia = c(exp(-5.632), exp(-5.632+1.101),   
+               exp(-5.632+1.52),exp(-5.632+1.77),
+               exp(-5.632+1.86),exp(-5.632+1.42))
+# Horsens
+Horsens = c(exp(-5.632-0.331), exp(-5.632-0.331+1.101),   
+            exp(-5.632-0.331+1.52),exp(-5.632-0.331+1.77),
+            exp(-5.632-0.331+1.86),
+            exp(-5.632-0.331+1.42))
+# Kolding
+Kolding= c(exp(-5.632-0.372), exp(-5.632-0.372+1.101),   
+           exp(-5.632-0.372+1.52),exp(-5.632-0.372+1.77),
+           exp(-5.632-0.372+1.86), exp(-5.632-0.372+1.42))
+# Vejle
+Vejle = c(exp(-5.632-0.272), exp(-5.632-0.272+1.101),   
+          exp(-5.632-0.272+1.52),exp(-5.632-0.272+1.77),
+          exp(-5.632-0.272+1.86), exp(-5.632-0.272+1.42))
+minmax = range(c(Fredericia,Horsens,Kolding,Vejle))
+####
+```
+
+
+
+```{r}
+plot(1:6,Fredericia, type="l", lty =1, col="red", xlab="", 
+               ylab="Cancer Rate", xlim=c(0,6), ylim=c(0, 0.03), axes=FALSE )
+axis(2)
+axis(1, labels=c("[45-54]","[55,59]","[60,64]","[65,69]","[70,74]","75+"), 
+            at = 1:6)
+points(1:6,Fredericia, pch=19, col="red")
+##
+lines(1:6, Horsens, lty =2, col="blue")
+points(1:6, Horsens, pch=20, col="blue")
+##
+lines(1:6, Kolding, lty =3, col="purple")
+points(1:6, Kolding, pch=21, col="purple")
+###
+lines(1:6, Vejle, lty =4, col="mediumvioletred")
+points(1:6, Vejle, pch=22, col="mediumvioletred")
+##
+legend("topleft", c("Fredericia","Horsens", "Kolding", "Vejle" ),
+                  pch=19:22, lty=1:4,  bty="n", 
+        col=c("red", "blue", "purple", "mediumvioletred"))
+```
+
+
+# Conclusion and Discussion
+
+Several conclusions we can draw from the output of the regression models.
+
+The regression model based on the cancer count is not appropriate since the information on the population size can not be used. Simply including the population size in the regression model improve the model performance. See the following output of the fitted Poisson regression model.
+
+
+```{r}
+model.freq.pop <- glm(cases ~ city + age + pop, family = poisson(link = "log"), 
+                      data = eba1977)
+##
+pois.count.coef.pop = summary(model.freq.pop)$coef
+kable(pois.count.coef.pop, caption = "The Poisson regression model for 
+         the counts of lung cancer cases versus the geographical locations, 
+         population size, and the age group.")
+```
+
+
+The cancer rate in Fredericia is significantly higher than in the other three cities. It seems that there is no significant difference between Horsens, Kolding, and Vejle. The reason why Fredericia has a higher cancer rate needs further investigation with additional information.
+
+There is a curve linear relationship between age and the cancer rate. The cancer rate increases as age increases. However, the rate starts decreasing after 75. This pattern is consistent with the clinical studies since lung cancer patients were most diagnosed between 65-70. It is rare to see lung cancer patients aged under 45.
+
+The last statistical observation is that there is no interaction effect between the age groups and the geographic locations. The rate curves are “parallel”.
+
+This is only a small data set with limited information. All conclusions in this report are only based on the given data set.
+
+
+# Beyond Poisson Regression Model
+
+Since I don't assume you have the GLM background, I prepare this non-technical introduction to the Poisson regression model with an illustrative example.
+
+What I did not cover in this note is the model diagnostic component. In practice, there are situations in which the Poisson regression model may not work well due to the potential violations of the Poisson distribution.  
+
+## Overdispersion in Poisson Regression Model (Optional)
+
+One of the potential issues is the overdispersion/under-dispersion. In Poisson distribution, the variance and mean are equal. If the variance is not equal to the mean, the Poisson regression has a dispersion problem. This is why we always check the dispersion in the Poisson regression model before we can use it for real-life applications. 
+
+The potential dispersion can be estimated by using quasi-Poisson models. The following code yields the estimate of potential dispersion.
+
+
+```{r}
+quasi.pois = glm(cases ~ city+age, family=quasipoisson, 
+                    offset = log(pop), data=eba1977)
+kable(summary(quasi.pois)$coef, caption = "Quasi-Poisson 
+      Regression model with estimated dispersion parameter")
+```
+
+The values of dispersion parameter was estimated from the above model and is extracted from the above model.
+
+```{r}
+kable(cbind(Dispersion = summary(quasi.pois)$dispersion, Expected.dispersion = 1), 
+      caption ="Estimated dispersion and the expected dispersion.")
+```
+
+Since the dispersion parameter based on the above model is about 1.54, there is a small dispersion. The Poisson regression model is considered a good model for the data.
+
+
+## Negative Binomial Regression Model
+
+If the dispersion is serious, the Poisson regression is not appropriate. An alternative model to the Poisson regression is the negative binomial regression model. We can use **glm.nb()** function in library {MASS} to fit the negative binomial model the **eba1977** data.
+
+```{r}
+nb.model = glm.nb(cases ~ city + age + offset(log(pop)), data = eba1977)
+kable(summary(nb.model)$coef, caption = "Negative binomial regression")
+```
+
+You might want to know why negative binomial regression is an alternative to the Poisson regression model. This is actually not a straightforward question. After you take a more rigorous mathematical statistics course, you will see there is some relationship between the two (actually many other distributions). Here we express the variance in terms of the mean in of the negative binomial distribution. Let $p$ be the success probability in the Bernoulli trial and $r$ be the number of successes to be observed before stopping the trial. $r$ is a fixed number, the number of trials, denoted by $Y$, needed before the $r$-th success is observed is the random that is called a negative binomial random variable. Then the mean $\mu$ and variance $\sigma^2$ of the negative binomial random variable $Y$ are given by
+
+
+$$
+\mu = E[Y] = \frac{rp}{1-p}, \sigma^2=V[Y] = \frac{rp}{(1-p)^2}.
+$$
+After some simple algebra, we have 
+
+$$
+\sigma^2 = \mu + \frac{\mu^2}{r}
+$$
+In the negative binomial, when $r\to \infty$, $\sigma^2 \to \mu$. This means that as $r$ gets bigger, the negative binomial distribution is close to the Poisson distribution. $r$ is called **dispersion parameter** of the negative binomial distribution. Some people also call $1/r$ the negative binomial dispersion parameter.  We can extract the estimated dispersion from the above negative binomial as follows
+
+```{r}
+kable(cbind(Dispersion.r = summary(nb.model)$theta), 
+      caption ="Estimated dispersion of negative binomial regression.")
+```
+
+The negative binomial dispersion parameter is 119797.5. This means the mean and the variance of the negative binomial distribution are close to each other. This also supports that the Poisson regression model is appropriate for lung cancer incidence data.
+
+
+## Zero-inflated Regression Models
+
+In real applications, you may have a situation where you observe excess zeros in your response (frequency counts). The Poisson distribution has some valid zeros. However, if your data set has too many zeros, the regular Poisson regression models will be inappropriate. 
+
+There are some R libraries containing functions for fitting zero-inflated models. I will not extend this topic and leave it to you for future exploration.
+
+
+# Concluding Remarks
+
+This note briefly outlines the regular Poisson regression model for fitting frequency data. The Poisson regression model has a simple structure and easy to interpret but has a relatively strong assumption - variance is equal to mean. 
+
+If this assumption is violated, we can use negative binomial regression as an alternative. The other potential issue is the data has excess zeros, then we can consider zero-inflated Poisson or zero-inflated negative binomial regression models.
+
+For this project, you are expected to use the regular Poisson regression model to fit the mortality rate at the county level. You can choose particular regions to create an analytic data set and fit the Poisson regression model to assess the potential association between mortality rate or case rates and demographics or social determinants
+
+
+
+
+
+
+
+
+
+
+
+
+
+
