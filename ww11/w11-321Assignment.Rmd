@@ -1,0 +1,120 @@
+---
+title: 'Week #11 Assignment'
+author: "Concepts Time Series"
+date: "Due: 4/16/2023"
+output:
+  pdf_document: 
+    toc: yes
+    toc_depth: 4
+    fig_caption: yes
+    number_sections: yes
+    fig_width: 5
+    fig_height: 4
+  word_document: 
+    toc: yes
+    toc_depth: 4
+    fig_caption: yes
+    keep_md: yes
+  html_document: 
+    toc: yes
+    toc_depth: 4
+    fig_width: 6
+    fig_height: 4
+    fig_caption: yes
+    number_sections: yes
+    theme: readable
+---
+<style type="text/css">
+h1.title {
+  font-size: 20px;
+  color: DarkRed;
+  text-align: center;
+}
+h4.author { /* Header 4 - and the author and data headers use this too  */
+    font-size: 18px;
+  font-family: "Times New Roman", Times, serif;
+  color: DarkRed;
+  text-align: center;
+}
+h4.date { /* Header 4 - and the author and data headers use this too  */
+  font-size: 18px;
+  font-family: "Times New Roman", Times, serif;
+  color: DarkBlue;
+  text-align: center;
+}
+h1 { /* Header 3 - and the author and data headers use this too  */
+    font-size: 22px;
+    font-family: "Times New Roman", Times, serif;
+    color: darkred;
+    text-align: center;
+}
+h2 { /* Header 3 - and the author and data headers use this too  */
+    font-size: 18px;
+    font-family: "Times New Roman", Times, serif;
+    color: navy;
+    text-align: left;
+}
+
+h3 { /* Header 3 - and the author and data headers use this too  */
+    font-size: 15px;
+    font-family: "Times New Roman", Times, serif;
+    color: navy;
+    text-align: left;
+}
+
+h4 { /* Header 4 - and the author and data headers use this too  */
+    font-size: 18px;
+    font-family: "Times New Roman", Times, serif;
+    color: darkred;
+    text-align: left;
+}
+</style>
+
+```{r setup, include=FALSE}
+# code chunk specifies whether the R code, warnings, and output 
+# will be included in the output files.
+if (!require("ISwR")) {
+   install.packages("ISwR")
+   library(ISwR)
+}
+if (!require("MASS")) {
+   install.packages("MASS")
+   library(MASS)
+}
+if (!require("knitr")) {
+   install.packages("knitr")
+   library(knitr)
+}
+if (!require("forecast")) {
+   install.packages("forecast")
+   library(forecast)
+}
+
+
+knitr::opts_chunk$set(echo = TRUE,       
+                      warnings = FALSE,   
+                      results = TRUE,   
+                      message = FALSE,
+                      fig.align='center', 
+                      fig.pos = 'ht')
+```
+
+
+Find a time series with at least 76 periods of values from the internet. Any type of time series (trend or non-trend, seasonal or non-seasonal, etc) will be fine for this assignment. The objective is to use the accuracy measures to compare the performance of the four baseline forecasting methods. To be more specific,
+
+1. Make a time series plot based on the data.
+
+2. Split the time series into training and testing sets. Please hold up the most recent 10 periods to calculate the forecasting error.
+
+3. Define a time series object using the R function **ts()** using the training data.
+
+4. Build the four baseline forecasting time series models.
+
+5. Create a graph to visualize the forecasted values.
+
+6. Calculate the accuracy measures for the four forecasting models and summarize the results.
+
+
+
+
+

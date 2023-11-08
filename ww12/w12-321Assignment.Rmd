@@ -1,0 +1,129 @@
+---
+title: 'Week #12: Assignment'
+author: 'Forecasting with Decomposition'
+date: "Due:  04/23/2023"
+output:
+  pdf_document: 
+    toc: no
+    toc_depth: 4
+    fig_caption: yes
+    number_sections: yes
+    fig_width: 5
+    fig_height: 4
+  word_document: 
+    toc: no
+    toc_depth: 4
+    fig_caption: yes
+    keep_md: yes
+  html_document: 
+    toc: no
+    toc_depth: 4
+    fig_width: 6
+    fig_height: 4
+    fig_caption: yes
+    number_sections: yes
+    theme: readable
+---
+<style type="text/css">
+h1.title {
+  font-size: 20px;
+  color: DarkRed;
+  text-align: center;
+}
+h4.author { /* Header 4 - and the author and data headers use this too  */
+    font-size: 18px;
+  font-family: "Times New Roman", Times, serif;
+  color: DarkRed;
+  text-align: center;
+}
+h4.date { /* Header 4 - and the author and data headers use this too  */
+  font-size: 18px;
+  font-family: "Times New Roman", Times, serif;
+  color: DarkBlue;
+  text-align: center;
+}
+h1 { /* Header 3 - and the author and data headers use this too  */
+    font-size: 22px;
+    font-family: "Times New Roman", Times, serif;
+    color: darkred;
+    text-align: center;
+}
+h2 { /* Header 3 - and the author and data headers use this too  */
+    font-size: 18px;
+    font-family: "Times New Roman", Times, serif;
+    color: navy;
+    text-align: left;
+}
+
+h3 { /* Header 3 - and the author and data headers use this too  */
+    font-size: 15px;
+    font-family: "Times New Roman", Times, serif;
+    color: navy;
+    text-align: left;
+}
+
+h4 { /* Header 4 - and the author and data headers use this too  */
+    font-size: 18px;
+    font-family: "Times New Roman", Times, serif;
+    color: darkred;
+    text-align: left;
+}
+</style>
+
+```{r setup, include=FALSE}
+# code chunk specifies whether the R code, warnings, and output 
+# will be included in the output files.
+if (!require("ISwR")) {
+   install.packages("ISwR")
+   library(ISwR)
+}
+if (!require("MASS")) {
+   install.packages("MASS")
+   library(MASS)
+}
+if (!require("knitr")) {
+   install.packages("knitr")
+   library(knitr)
+}
+if (!require("forecast")) {
+   install.packages("forecast")
+   library(forecast)
+}
+
+knitr::opts_chunk$set(echo = TRUE,       
+                      warnings = FALSE,   
+                      results = TRUE,   
+                      message = FALSE,
+                      fig.align='center', 
+                      fig.pos = 'ht')
+```
+
+\
+
+\
+
+This assignment focuses on the conceptual understanding of decomposing time series and forecasting with decomposing. As mentioned in the closing paragraph of the case study in the class note, the goals of this assignment are (1) to enhance your conceptual understanding of methods of decomposition and forecasting; (2) to find the appropriate training size to produce the best performance.
+
+
+The following websites contain some time series data. You can find one time series that has at least 150 observations. If your data set has more than 150, you choose 150-200 most recent observations to complete the assignment. The analysis and components in the analysis should be similar to that in the case study in the class note.
+
+1.	https://www.census.gov/econ/currentdata/datasets/index
+
+2.	https://datahub.io/search
+
+3.	https://lionbridge.ai/datasets/17-best-finance-economic-datasets-for-machine-learning/
+
+You can also find your data set from other sites for this assignment.
+
+In this assignment, please submit three documents: RMD, WORD/HTML/PDF, and the data file.
+
+\
+
+\
+
+\
+
+
+
+
+
